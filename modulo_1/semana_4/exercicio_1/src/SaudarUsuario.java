@@ -5,7 +5,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class M1S04 {
+public class SaudarUsuario {
 
     public static void main(String[] args) {
 
