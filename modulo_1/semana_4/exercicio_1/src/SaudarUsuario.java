@@ -1,7 +1,3 @@
-// Crie um programa em Java que, ao executar, verifique o horário atual e escreva para o usuário uma saudação, contendo o período e o horário.
-// Por exemplo: “Boa tarde, no momento são 15:08.”.
-
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,32 +5,25 @@ public class SaudarUsuario {
 
     public static void main(String[] args) {
 
-        // data/hora atual
         LocalDateTime agora = LocalDateTime.now();
 
-        // formatar a data
-        DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-        String dataFormatada = formatterData.format(agora);
+        DateTimeFormatter formatterHoraAtual = DateTimeFormatter.ofPattern("HH:mm");
+        String horaFormatada = formatterHoraAtual.format(agora);
 
-        // formatar a hora
-        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm a");
-        String horaFormatada = formatterHora.format(agora);
+        DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH");
+        int hora = Integer.parseInt(formatterHora.format(agora));
 
         String saudacao;
 
-        if (true) {
-            saudacao = "Bom dia, ";
-        } else if (true) {
-            saudacao = "Boa tarde, ";
-
+        if (hora >= 6 && hora < 12) {
+            saudacao = "Bom dia";
+        } else if (hora >= 12 && hora < 18) {
+            saudacao = "Boa tarde";
         } else {
-            saudacao = "Boa noite, ";
+            saudacao = "Boa noite";
         }
 
-        System.out.println(saudacao + "no momento são " + horaFormatada + ".");
-
-
-
+        System.out.printf("%s, no momento são %s.", saudacao, horaFormatada);
 
     }
 }
