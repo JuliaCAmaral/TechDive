@@ -40,6 +40,7 @@ public class CalculadoraPAPG {
                     termos[i] = numeroInserido * Math.pow(raiz, i);
                 }
                 tipo = "PG";
+                break;
         }
 
         for (int i = 0; i < termos.length; i++) {
