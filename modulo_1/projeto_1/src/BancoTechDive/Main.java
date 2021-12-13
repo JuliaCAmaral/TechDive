@@ -125,8 +125,14 @@ public class Main {
 
         System.out.println();
 
-        for(Conta conta : agencia.getContas()) {
+        Conta[] contas = agencia.getContas();
+
+        for(Conta conta : contas) {
             System.out.println(conta);
+        }
+
+        if (contas.length == 0) {
+            System.out.println("Nenhuma conta cadastrada.");
         }
 
         System.out.println("Operação realizada com sucesso.");

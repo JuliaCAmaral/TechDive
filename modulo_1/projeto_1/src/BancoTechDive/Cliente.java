@@ -1,7 +1,5 @@
 package BancoTechDive;
 
-import java.security.InvalidParameterException;
-
 public class Cliente {
 
     private final String nome;
