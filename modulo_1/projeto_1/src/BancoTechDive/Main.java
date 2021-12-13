@@ -29,42 +29,46 @@ public class Main {
                         break;
 
                     case "3":
-                        criarContaCorrente();
+                        listarContasNegativas();
                         break;
 
                     case "4":
-                        criarContaPopanca();
+                        criarContaCorrente();
                         break;
 
                     case "5":
-                        criarContaInvestimento();
+                        criarContaPopanca();
                         break;
 
                     case "6":
-                        sacar();
+                        criarContaInvestimento();
                         break;
 
                     case "7":
-                        depositar();
+                        sacar();
                         break;
 
                     case "8":
-                        transferir();
+                        depositar();
                         break;
 
                     case "9":
-                        consultarSaldo();
+                        transferir();
                         break;
 
                     case "10":
-                        consultarExtrato();
+                        consultarSaldo();
                         break;
 
                     case "11":
-                        simularRendimento();
+                        consultarExtrato();
                         break;
 
                     case "12":
+                        simularRendimento();
+                        break;
+
+                    case "13":
                         simularInvestimento();
                         break;
 
@@ -95,16 +99,17 @@ public class Main {
         System.out.println("Digite:");
         System.out.println("1 - Listar agências");
         System.out.println("2 - Listar contas");
-        System.out.println("3 - Criar conta corrente");
-        System.out.println("4 - Criar conta poupança");
-        System.out.println("5 - Criar conta investimento");
-        System.out.println("6 - Sacar");
-        System.out.println("7 - Depositar");
-        System.out.println("8 - Transferir");
-        System.out.println("9 - Consultar saldo");
-        System.out.println("10 - Consultar extrato");
-        System.out.println("11 - Simular rendimento da poupança");
-        System.out.println("12 - Simular investimento");
+        System.out.println("3 - Listar contas com saldo negativo");
+        System.out.println("4 - Criar conta corrente");
+        System.out.println("5 - Criar conta poupança");
+        System.out.println("6 - Criar conta investimento");
+        System.out.println("7 - Sacar");
+        System.out.println("8 - Depositar");
+        System.out.println("9 - Transferir");
+        System.out.println("10 - Consultar saldo");
+        System.out.println("11 - Consultar extrato");
+        System.out.println("12 - Simular rendimento da poupança");
+        System.out.println("13 - Simular investimento");
         System.out.println("0 - Para sair");
 
         return input.nextLine();
@@ -133,6 +138,23 @@ public class Main {
 
         if (contas.length == 0) {
             System.out.println("Nenhuma conta cadastrada.");
+        }
+
+        System.out.println("Operação realizada com sucesso.");
+
+    }
+
+    public static void listarContasNegativas() {
+        Agencia agencia = lerAgencia();
+
+        System.out.println();
+
+        Conta[] contas = agencia.getContas();
+
+        for(Conta conta : contas) {
+            if (conta.getSaldo() < 0) {
+                System.out.println(conta);
+            }
         }
 
         System.out.println("Operação realizada com sucesso.");
