@@ -7,8 +7,8 @@ public class Vendedor extends Empregado {
     private double comissao;
 
     public double calculaComissao() {
-        double comissaoCalculada = this.valorVendas * (this.comissao/100);
-        return comissaoCalculada;
+
+        return this.valorVendas * (this.comissao/100);
     }
 
     public double getValorVendas() {
@@ -30,8 +30,7 @@ public class Vendedor extends Empregado {
     @Override
     public double calcularSalario(int codigoSetor) {
 
-        double salarioVendedor = super.calcularSalario(codigoSetor) + calculaComissao();
-        return salarioVendedor;
+        return super.calcularSalario(codigoSetor) + calculaComissao();
     }
 
     @Override
@@ -39,8 +38,4 @@ public class Vendedor extends Empregado {
         return "Vendedor";
     }
 
-    @Override
-    public String toString() {
-        return String.format("%n%s - %s: Contato: %s, %s",getTipo(), getNome(), getTelefone(), getEndereco());
-    }
 }

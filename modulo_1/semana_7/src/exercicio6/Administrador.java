@@ -12,23 +12,14 @@ public class Administrador extends Empregado {
         this.ajudaDeCusto = ajudaDeCusto;
     }
 
-
     @Override
     protected String getTipo() {
         return "Administrador";
     }
 
     @Override
-    public String toString() {
-        return String.format("%n%s - %s: Contato: %s, %s",getTipo(), getNome(), getTelefone(), getEndereco());
-
-    }
-
-    @Override
     public double calcularSalario(int codigoSetor) {
 
-        double salarioAdministrador = super.calcularSalario(codigoSetor) + getAjudaDeCusto();
-
-        return salarioAdministrador;
+        return super.calcularSalario(codigoSetor) + getAjudaDeCusto();
     }
 }

@@ -62,11 +62,6 @@ public class Empregado extends Pessoa {
     }
 
     @Override
-    public String toString() {
-        return String.format("%n%s - %s: Contato: %s, %s",getTipo(), getNome(), getTelefone(), getEndereco());
-    }
-
-    @Override
     protected String getTipo() {
         return "Empregado";
     }
