@@ -18,7 +18,6 @@ public class Escola {
         for (Docente verificaDocente : turma.getDocentes()) {
             if (verificaDocente == docente) {
                 throw new RuntimeException("O docente já está cadastrado na turma.");
-
             }
         }
 
@@ -28,7 +27,6 @@ public class Escola {
     }
 
     public int addDocente(String nome) {
-
         Docente docente = new Docente(nome);
 
         int idDocente = docentes.size() + 1;
@@ -39,7 +37,6 @@ public class Escola {
     }
 
     public int addTurma(String nome, int quantidadeAlunos, LocalDate dataInicio) {
-
         Turma turma = new Turma(nome, quantidadeAlunos, dataInicio);
 
         int idTurma = turmas.size() + 1;

@@ -96,7 +96,6 @@ public class Turma {
             }
 
             Aula aula = new Aula(data, docente, assunto);
-
             aulas.add(aula);
         }
 
@@ -104,7 +103,6 @@ public class Turma {
     }
 
     public int getSemanasDisponiveis() {
-
         int totalSemanas = 0;
 
         for (Assunto assunto: assuntos) {

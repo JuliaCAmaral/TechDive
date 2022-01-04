@@ -13,10 +13,8 @@ public class Main {
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(final String[] args) {
-
         while (true) {
             String opcao = lerOpcao();
-
             try {
                 switch (opcao) {
                     case "1":
@@ -71,7 +69,6 @@ public class Main {
                 break;
 
             } else {
-
                 System.out.println("\n\n----------------------------");
                 System.out.println("Digite enter para continuar.");
                 System.out.println("----------------------------\n\n");
@@ -81,7 +78,6 @@ public class Main {
     }
 
     private static void novoDocente() {
-
         System.out.println("Digite o nome do docente: ");
         String nome = input.nextLine();
 
@@ -94,7 +90,6 @@ public class Main {
     }
 
     private static void novaTurma() {
-
         System.out.println("Digite o nome da turma: ");
         String nome = input.nextLine();
 
@@ -103,7 +98,6 @@ public class Main {
 
         System.out.println("Digite a data do inicio da turma, deve ser segunda-feira [dd/MM/yyyy]: ");
         String str = input.nextLine();
-        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         LocalDate dataInicio = LocalDate.parse(str, dtf);
 
@@ -175,7 +169,6 @@ public class Main {
     }
 
     private static void listarTurmas() {
-
         Turma[] turmas = escola.getTurmas();
 
         for (Turma turma : turmas) {
@@ -188,7 +181,6 @@ public class Main {
     }
 
     private static void listarDocentes() {
-
         Docente[] docentes = escola.getDocentes();
 
         for (Docente docente : docentes) {
@@ -201,7 +193,6 @@ public class Main {
     }
 
     private static void informacoesTurma() {
-
         System.out.println("Digite o código da turma: ");
         int idTurma = lerInt();
 
@@ -251,7 +242,6 @@ public class Main {
         for (Aula aula : turma.getAulas()) {
 
             System.out.printf("%s - Assunto: %s - Docente: %s%n", dtf.format(aula.getDia()), aula.getDescricaoAssunto(), aula.getNomeDocente());
-
         }
     }
 
@@ -271,7 +261,6 @@ public class Main {
                 for(Aula aula : turma.getAulas()) {
                     if (aula.getDocente() == docente){
                         System.out.printf("%s - Turma: %s - Assunto: %s.%n", dtf.format(aula.getDia()), turma.getNome(),aula.getDescricaoAssunto());
-
                     }
                 }
             }
