@@ -1,43 +1,40 @@
 package model;
 
-abstract class Jogador extends Personagem implements Atacante {
-    public Jogador(int pontosDeSaude, int pontosDeAtaque, int pontosDeDefesa) {
-        super(pontosDeSaude, pontosDeAtaque, pontosDeDefesa);
-    }
+public abstract class Player extends Character {
 
-    private String nome;
-    private String sexo;
-    private Motivacao motivacao;
-    private EnumArma arma;
-    private int hp;
+    private String name;
+    private String gender;
+    private GoalEnum goalEnum;
 
-    public Jogador(int pontosDeSaude, int pontosDeAtaque, int pontosDeDefesa, String nome, String sexo, EnumArma arma) {
-        super(pontosDeSaude, pontosDeAtaque, pontosDeDefesa);
-
-        if (!nome.isEmpty()) {
-            this.nome = nome;
+    public Player(int attackPoints, int defensePoints, String name, String gender, WeaponEnum weapon) {
+        super(300, attackPoints, defensePoints, weapon);
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException();
         }
+        this.name = name;
 
-        if (sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F")) {
-            this.sexo = sexo;
+        if (gender.equalsIgnoreCase("M") || gender.equalsIgnoreCase("F")) {
+            this.gender = gender;
         }
-        this.arma = arma;
     }
 
-    public String getNome() {
-        return nome;
+    public void restoreHealth() {
+        super.setHealthPoints(100);
     }
 
-    public String getSexo() {
-        return sexo;
+    public String getName() {
+        return name;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public String getGender() {
+        return gender;
     }
 
-    @Override
-    public void atacar(Personagem personagem) {
+    public GoalEnum getGoalEnum() {
+        return goalEnum;
+    }
 
+    public void setGoalEnum(GoalEnum goalEnum) {
+        this.goalEnum = goalEnum;
     }
 }

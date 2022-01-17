@@ -1,14 +1,8 @@
 package model;
 
-abstract class Enemi extends Character implements Atacante {
-    public Enemi(int pontosDeSaude, int pontosDeAtaque, int pontosDeDefesa) {
-        super(pontosDeSaude, pontosDeAtaque, pontosDeDefesa);
-    }
+public abstract class Enemy extends Character {
 
-    private WeaponEnum enumArma;
-
-    @Override
-    public void atacar(Character character) {
-
+    public Enemy(int healthPoints, int attackPoints, int defensePoints, WeaponEnum weapon) {
+        super(healthPoints, attackPoints, defensePoints, weapon);
     }
 }

@@ -1,14 +1,18 @@
 package model;
 
-public class Archer extends Jogador {
-    public Archer(int pontosDeSaude, int pontosDeAtaque, int pontosDeDefesa, String nome, String sexo, EnumArma arma) {
-        super(pontosDeSaude, pontosDeAtaque, pontosDeDefesa, nome, sexo, arma);
+public class Bowman extends Player {
 
-        if (!(arma == EnumArma.BOW || arma == EnumArma.CROSSBOW)) {
+    private static WeaponEnum[] weapons = { WeaponEnum.BOW, WeaponEnum.CROSSBOW };
+
+    public Bowman(String name, String gender, WeaponEnum weapon) {
+        super(18, 13, name, gender, weapon);
+
+        if (!(weapon == WeaponEnum.BOW || weapon == WeaponEnum.CROSSBOW)) {
             throw new RuntimeException("O arqueiro só pode usar como arma o arco ou a besta.");
         }
     }
 
-
-
+    public static WeaponEnum[] getWeapons(){
+        return weapons;
+    }
 }
