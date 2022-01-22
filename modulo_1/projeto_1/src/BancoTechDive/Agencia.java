@@ -9,35 +9,35 @@ public class Agencia {
 
     private final String nome;
 
-    private ArrayList<Banco.Conta> contas = new ArrayList<Banco.Conta>();
+    private ArrayList<Conta> contas = new ArrayList<Conta>();
 
     public Agencia(int numero, String nome) {
         this.nome = nome;
         this.numero = numero;
     }
 
-    public Banco.ContaCorrente criarContaCorrente(Cliente cliente) {
+    public ContaCorrente criarContaCorrente(Cliente cliente) {
         int numeroConta = contas.size() + 1;
-        Banco.ContaCorrente contaCorrente = new Banco.ContaCorrente(numeroConta, this.numero, cliente);
+        ContaCorrente contaCorrente = new ContaCorrente(numeroConta, this.numero, cliente);
         contas.add(contaCorrente);
         return contaCorrente;
     }
 
-    public Banco.ContaPoupanca criarContaPoupanca(Cliente cliente) {
+    public ContaPoupanca criarContaPoupanca(Cliente cliente) {
         int numeroConta = contas.size() + 1;
-        Banco.ContaPoupanca contaPoupanca = new Banco.ContaPoupanca(numeroConta, this.numero, cliente);
+        ContaPoupanca contaPoupanca = new ContaPoupanca(numeroConta, this.numero, cliente);
         contas.add(contaPoupanca);
         return contaPoupanca;
     }
 
-    public Banco.ContaInvestimento criarContaInvestimento(Cliente cliente) {
+    public ContaInvestimento criarContaInvestimento(Cliente cliente) {
         int numeroConta = contas.size() + 1;
-        Banco.ContaInvestimento contaInvestimento = new Banco.ContaInvestimento(numeroConta, this.numero, cliente);
+        ContaInvestimento contaInvestimento = new ContaInvestimento(numeroConta, this.numero, cliente);
         contas.add(contaInvestimento);
         return contaInvestimento;
     }
 
-    public Banco.Conta getConta(int codigo) {
+    public Conta getConta(int codigo) {
         if (codigo < 0 || codigo > contas.size()){
             throw new InvalidParameterException("Conta inválida.");
         }
@@ -53,8 +53,8 @@ public class Agencia {
         return nome;
     }
 
-    public Banco.Conta[] getContas() {
-        return contas.toArray(new Banco.Conta[0]);
+    public Conta[] getContas() {
+        return contas.toArray(new Conta[0]);
     }
 
     @Override
