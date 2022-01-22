@@ -130,9 +130,9 @@ public class Main {
 
         System.out.println();
 
-        Conta[] contas = agencia.getContas();
+        Banco.Conta[] contas = agencia.getContas();
 
-        for(Conta conta : contas) {
+        for(Banco.Conta conta : contas) {
             System.out.println(conta);
         }
 
@@ -149,9 +149,9 @@ public class Main {
 
         System.out.println();
 
-        Conta[] contas = agencia.getContas();
+        Banco.Conta[] contas = agencia.getContas();
 
-        for(Conta conta : contas) {
+        for(Banco.Conta conta : contas) {
             if (conta.getSaldo() < 0) {
                 System.out.println(conta);
             }
@@ -167,7 +167,7 @@ public class Main {
 
         Agencia agencia = lerAgencia();
 
-        ContaCorrente conta = agencia.criarContaCorrente(cliente);
+        Banco.ContaCorrente conta = agencia.criarContaCorrente(cliente);
 
         System.out.println();
         System.out.println("Detalhes da conta corrente:");
@@ -180,7 +180,7 @@ public class Main {
 
         Agencia agencia = lerAgencia();
 
-        ContaPoupanca conta = agencia.criarContaPoupanca(cliente);
+        Banco.ContaPoupanca conta = agencia.criarContaPoupanca(cliente);
 
         System.out.println();
         System.out.println("Detalhes da conta poupança:");
@@ -194,7 +194,7 @@ public class Main {
 
         Agencia agencia = lerAgencia();
 
-        ContaInvestimento conta = agencia.criarContaInvestimento(cliente);
+        Banco.ContaInvestimento conta = agencia.criarContaInvestimento(cliente);
 
         System.out.println();
         System.out.println("Detalhes da conta investimento:");
@@ -205,7 +205,7 @@ public class Main {
     public static void sacar() {
         Agencia agencia = lerAgencia();
 
-        Conta conta = lerConta(agencia);
+        Banco.Conta conta = lerConta(agencia);
 
         double valor = lerValorDouble("Digite o valor do saque ou sair para sair:");
 
@@ -217,7 +217,7 @@ public class Main {
     public static void depositar() {
         Agencia agencia = lerAgencia();
 
-        Conta conta = lerConta(agencia);
+        Banco.Conta conta = lerConta(agencia);
 
         double valor = lerValorDouble("Digite o valor do depósito ou sair para sair:");
 
@@ -229,11 +229,11 @@ public class Main {
     public static void transferir() {
         Agencia agencia1 = lerAgencia("Digite o código da agência da conta de origem ou 0 para sair.");
 
-        Conta conta1 = lerConta(agencia1, "Digite o código da conta de origem ou 0 para sair.");
+        Banco.Conta conta1 = lerConta(agencia1, "Digite o código da conta de origem ou 0 para sair.");
 
         Agencia agencia2 = lerAgencia("Digite o código da agência da conta de destino ou 0 para sair.");
 
-        Conta conta2 = lerConta(agencia2, "Digite o código da conta de destino ou 0 para sair.");
+        Banco.Conta conta2 = lerConta(agencia2, "Digite o código da conta de destino ou 0 para sair.");
 
         double valor = lerValorDouble("Digite o valor da transferência:");
 
@@ -245,7 +245,7 @@ public class Main {
     public static void consultarSaldo() {
         Agencia agencia = lerAgencia();
 
-        Conta conta = lerConta(agencia);
+        Banco.Conta conta = lerConta(agencia);
 
         System.out.println("Saldo atual:");
 
@@ -257,7 +257,7 @@ public class Main {
     public static void consultarExtrato() {
         Agencia agencia = lerAgencia();
 
-        Conta conta = lerConta(agencia);
+        Banco.Conta conta = lerConta(agencia);
 
         System.out.println();
 
@@ -276,9 +276,9 @@ public class Main {
 
         Agencia agencia = lerAgencia();
 
-        Conta conta = lerConta(agencia);
+        Banco.Conta conta = lerConta(agencia);
 
-        if (!(conta instanceof ContaPoupanca)){
+        if (!(conta instanceof Banco.ContaPoupanca)){
             throw new InvalidParameterException("Apenas a conta poupança permite simular o rendimento.");
         }
 
@@ -299,9 +299,9 @@ public class Main {
 
         Agencia agencia = lerAgencia();
 
-        Conta conta = lerConta(agencia);
+        Banco.Conta conta = lerConta(agencia);
 
-        if (!(conta instanceof ContaInvestimento)){
+        if (!(conta instanceof Banco.ContaInvestimento)){
             throw new InvalidParameterException("Apenas a conta investimento permite simular o investimento.");
         }
 
@@ -424,11 +424,11 @@ public class Main {
         }
     }
 
-    public static Conta lerConta(Agencia agencia) {
+    public static Banco.Conta lerConta(Agencia agencia) {
         return lerConta(agencia,"Digite o código da conta ou 0 para sair.");
     }
 
-    public static Conta lerConta(Agencia agencia, String texto) {
+    public static Banco.Conta lerConta(Agencia agencia, String texto) {
         while (true) {
             System.out.println(texto);
 
