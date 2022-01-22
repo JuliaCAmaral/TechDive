@@ -7,7 +7,7 @@ public abstract class Player extends Character {
     private GoalEnum goalEnum;
 
     public Player(int attackPoints, int defensePoints, String name, String gender, WeaponEnum weapon) {
-        super(300, attackPoints, defensePoints, weapon);
+        super(200, attackPoints, defensePoints, weapon);
         if (name.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -19,7 +19,7 @@ public abstract class Player extends Character {
     }
 
     public void restoreHealth() {
-        super.setHealthPoints(100);
+        super.setHealthPoints(200);
     }
 
     public String getName() {

@@ -123,8 +123,7 @@ public class Main {
                         + "Você ouve um ruído de mecanismos se movimentando, e uma escotilha se abre no teto atrás de você, no corredor.\n"
                         + "Flechas voam da escotilha em sua direção, e você salta para dentro da sala, porém uma delas te acerta na perna.");
 
-                Trap doorTrap = new Trap();
-                doorTrap.attack(player);
+                trap(player);
                 break;
         }
 
@@ -151,8 +150,9 @@ public class Main {
                 + "com vários equipamentos de batalha pendurados nas paredes e dispostos em armários e mesas.\n"
                 + "Você imagina que este seja o arsenal do inimigo, onde estão guardados os equipamentos que seus soldados\n"
                 + "utilizam quando saem para espalhar o terror nas cidades e vilas da região.\n"
-                + "Enquanto seu olhar percorre a sala, você ouve a porta se fechando e gira rapidamente para olhar para trás.\n"
-                + "Ali, de pé entre você e a porta fechada, bloqueando o caminho do seu destino, está um dos capitães do inimigo.\n"
+                + "Enquanto seu olhar percorre a sala, você ouve a porta se fechando e gira rapidamente para olhar para trás.\n");
+
+        System.out.println("Ali, de pé entre você e a porta fechada, bloqueando o caminho do seu destino, está um dos capitães do inimigo.\n"
                 + "Um orc horrendo, de armadura, capacete e espada em punho, em posição de combate.\n"
                 + "Ele avança em sua direção.\n");
 
@@ -163,7 +163,7 @@ public class Main {
 
         input.nextLine();
 
-        combate(player, orcWarrior, 2);
+        combat(player, orcWarrior, 2);
 
         System.out.println("Após derrotar o Armeiro, você percebe que seus equipamentos estão muito danificados.\n"
                 + "Olha em volta, encarando todas aquelas peças de armaduras resistentes e em ótimo estado.");
@@ -211,7 +211,7 @@ public class Main {
 
         input.nextLine();
 
-        combate(player, orcAlchemist, 2);
+        combat(player, orcAlchemist, 2);
 
         System.out.println("Após derrotar o Alquimista, você olha em volta, tentando reconhecer alguma poção do estoque do inimigo.\n"
                 + "Em uma mesa, você reconhece uma pequena garrafa de vidro contendo um líquido levemente rosado,\n"
@@ -258,11 +258,15 @@ public class Main {
 
         AttackOrWaitEnum attackOrWait = readOption(AttackOrWaitEnum.values(), "Deseja atacar ou esperar?");
 
-        if (attackOrWait.getValue() == 1) {
-            combate(player, orcLeader, 1);
-        } else {
-            System.out.println("O líder rapidamente te ataca com seu machado duplo.");
-            combate(player, orcLeader, 2);
+        switch (attackOrWait) {
+            case ATTACK:
+                combat(player, orcLeader, 1);
+                break;
+
+            case WAIT:
+                System.out.println("O líder rapidamente te ataca com seu machado duplo.");
+                combat(player, orcLeader, 2);
+                break;
         }
 
         input.nextLine();
@@ -294,17 +298,25 @@ public class Main {
 
     }
 
-    private static void combate(Player player, Enemy enemy, int turn){
+    private static void trap(Player player) {
+        Trap doorTrap = new Trap();
+        AttackResult attackResult = doorTrap.attack(player);
+
+        if (attackResult.isMissed()) {
+            System.out.println("\nO ataque da armadilha te pegou de raspão e você não sofreu dano.\n");
+        } else {
+            System.out.printf("\nVocê sofreu %d de dano e agora possui %d pontos de vida.\n", attackResult.getDamage(), attackResult.getHealth());
+        }
+    }
+
+    private static void combat(Player player, Enemy enemy, int turn){
         while (true){
-            if (turn++ % 2 == 1){
+            if (turn++ % 2 == 1) {
+                GiveUpEnum giveUp = readOption(GiveUpEnum.values(), "\nVocê deseja fugir ou atacar?");
 
-                if (turn != 1) {
-                    GiveUpEnum giveUp = readOption(GiveUpEnum.values(), "\nVocê deseja fugir ou atacar?");
-
-                    if (giveUp == GiveUpEnum.YES) {
-                        System.out.println("Você não estava preparado para a força do inimigo, e decide fugir para que possa tentar novamente em uma próxima vez.");
-                        System.exit(0);
-                    }
+                if (giveUp == GiveUpEnum.YES) {
+                    System.out.println("Você não estava preparado para a força do inimigo, e decide fugir para que possa tentar novamente em uma próxima vez.");
+                    System.exit(0);
                 }
 
                 AttackResult result = player.attack(enemy);
@@ -316,6 +328,9 @@ public class Main {
 
                 if (result.isCritical()) {
                     System.out.printf("Você acertou um ataque crítico %s e causou %d de dano no inimigo!\n", result.getWeapon().getMessage(), result.getDamage());
+                }
+                if (result.getDamage() == 0) { //
+                    System.out.println("O inimigo defendeu o seu ataque!"); //
                 } else {
                     System.out.printf("Você atacou %s e causou %d de dano no inimigo!\n", result.getWeapon().getMessage(), result.getDamage());
                 }
@@ -328,8 +343,9 @@ public class Main {
                     System.out.printf("O inimigo ainda possui %d de energia.\n", enemy.getHealthPoints());
                 }
             } else {
-
                 AttackResult result = enemy.attack(player);
+
+                System.out.printf("\nO inimigo %s avança em um ataque!\n", enemy.getWeapon().getMessage());
 
                 if (result.isMissed()){
                     System.out.println("O inimigo errou o ataque! Você não sofreu dano.");
@@ -340,7 +356,11 @@ public class Main {
                     System.out.println("O inimigo acertou um ataque crítico!");
                 }
 
-                System.out.printf("Você sofreu %d de dano e agora possui %d pontos de vida.\n", result.getDamage(), result.getHealth());
+                if (result.getDamage() == 0) { //
+                        System.out.println("Você defendeu o ataque!"); //
+                } else {
+                    System.out.printf("Você sofreu %d de dano e agora possui %d pontos de vida.\n", result.getDamage(), result.getHealth());
+                }
 
                 if (result.isDead()) {
                     clearConsole();
@@ -354,7 +374,7 @@ public class Main {
                             if (player.getGender().equals("M")) {
                                 System.out.println("A glória que buscavas não será sua, e a cidade aguarda por seu próximo herói.");
                             } else {
-                                System.out.println("A glória que buscavas não será sua, e a cidade aguarda por sua próximoa heróina.");
+                                System.out.println("A glória que buscavas não será sua, e a cidade aguarda por sua próxima heróina.");
                             }
                     }
 
@@ -435,7 +455,7 @@ public class Main {
         System.out.println("\nDigite o código da arma que o personagem usará nas batalhas");
 
         for (int i = 0; i < weapons.length ; i++) {
-            System.out.printf("%d - %s - Pontos de ataque: %d%n", i + 1, weapons[i].getDisplayName(), weapons[i].getAttack());
+            System.out.printf("%d - %s%n", i + 1, weapons[i].getDisplayName());
         }
 
         while (true) {
@@ -458,7 +478,7 @@ public class Main {
         while (true) {
             String userInput = input.nextLine();
 
-            if (userInput.isEmpty()) {
+            if (userInput.isEmpty() || userInput.equals(" ")) {
                 System.out.println("\nO nome não pode ser vazio.");
                 System.out.print("Nome do personagem: ");
                 continue;
@@ -501,7 +521,6 @@ public class Main {
         }
 
         while (true) {
-
             String line = input.nextLine();
 
             for (TOptions option : options) {

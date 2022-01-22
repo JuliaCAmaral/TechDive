@@ -3,8 +3,8 @@ package view;
 import model.DisplayEnum;
 
 public enum  GiveUpEnum implements DisplayEnum {
-    NO  (1, "Não! Irei continuar!"),
-    YES (2, "Sim, Irei fugir.");
+    NO  (1, "Irei atacar!"),
+    YES (2, "Irei fugir.");
 
     private final int value;
     private final String displayName;

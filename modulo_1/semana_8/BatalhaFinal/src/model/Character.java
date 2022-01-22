@@ -1,6 +1,6 @@
 package model;
 
-abstract class Character {
+abstract class Character implements Attacker {
 
     private int healthPoints;
     private int attackPoints;
