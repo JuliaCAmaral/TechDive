@@ -1,6 +1,6 @@
 package model;
 
-import view.HighLowSeason;
+import view.HighLowSeasonEnum;
 
 public class Simulation {
 
@@ -14,10 +14,10 @@ public class Simulation {
         this.supremeRooms = 10 - (this.standardRooms + this.premiumRooms);
     }
 
-    public double getPrice(int period, HighLowSeason highOrLow) {
-        double costStandardRooms = highOrLow.equals(HighLowSeason.HIGH_SEASON) ? this.standardRooms * RoomTypeEnum.STANDARD.getHighCost() : this.standardRooms * RoomTypeEnum.STANDARD.getLowCost();
-        double costPremiumRooms  = highOrLow.equals(HighLowSeason.HIGH_SEASON) ? this.premiumRooms * RoomTypeEnum.PREMIUM.getHighCost() : this.premiumRooms * RoomTypeEnum.PREMIUM.getLowCost();
-        double costSupremeRooms  = highOrLow.equals(HighLowSeason.HIGH_SEASON) ? this.supremeRooms * RoomTypeEnum.SUPREME.getHighCost() : this.supremeRooms * RoomTypeEnum.SUPREME.getLowCost();
+    public double getPrice(int period, HighLowSeasonEnum highOrLow) {
+        double costStandardRooms = highOrLow.equals(HighLowSeasonEnum.HIGH_SEASON) ? this.standardRooms * RoomTypeEnum.STANDARD.getHighCost() : this.standardRooms * RoomTypeEnum.STANDARD.getLowCost();
+        double costPremiumRooms  = highOrLow.equals(HighLowSeasonEnum.HIGH_SEASON) ? this.premiumRooms * RoomTypeEnum.PREMIUM.getHighCost() : this.premiumRooms * RoomTypeEnum.PREMIUM.getLowCost();
+        double costSupremeRooms  = highOrLow.equals(HighLowSeasonEnum.HIGH_SEASON) ? this.supremeRooms * RoomTypeEnum.SUPREME.getHighCost() : this.supremeRooms * RoomTypeEnum.SUPREME.getLowCost();
 
         return period * (costStandardRooms + costPremiumRooms + costSupremeRooms);
     }

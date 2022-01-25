@@ -49,7 +49,7 @@ public class Main {
     }
 
     private static void simulation() {
-        HighLowSeason highOrLow = readOption(HighLowSeason.values(), "Gostaria de Simular as 10 reservas durante qual temporada?");
+        HighLowSeasonEnum highOrLow = readOption(HighLowSeasonEnum.values(), "Gostaria de Simular as 10 reservas durante qual temporada?");
 
         Simulation simulationUser = new Simulation();
 
@@ -58,11 +58,11 @@ public class Main {
 
         switch (highOrLow) {
             case HIGH_SEASON:
-                result = simulationUser.getPrice(period, HighLowSeason.HIGH_SEASON);
+                result = simulationUser.getPrice(period, HighLowSeasonEnum.HIGH_SEASON);
                 break;
 
             case LOW_SEASON:
-                result = simulationUser.getPrice(period, HighLowSeason.LOW_SEASON);
+                result = simulationUser.getPrice(period, HighLowSeasonEnum.LOW_SEASON);
                 break;
         }
 
