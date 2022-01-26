@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Book {
     private final LocalDate checkInDate;
@@ -58,9 +59,7 @@ public class Book {
     }
 
     public double getPrice() {
-        Period period = Period.between(this.checkInDate, this.checkOutDate);
-
-        int days = period.getDays();
+        long days = ChronoUnit.DAYS.between(this.checkInDate, this.checkOutDate);
 
         double cost = Season.IsHighSeason(checkInDate) ? room.getRoomType().getHighCost() : room.getRoomType().getLowCost();
 
