@@ -1,18 +1,14 @@
 package exercicio_7;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Main {
-
     private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-
-        try
-        {
+        try {
             InputStream fis = new FileInputStream("Exemplo.txt");
             Reader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(isr);
@@ -51,7 +47,6 @@ public class Main {
                 System.out.println("Entrada inválida. Digite 1 caracter alfanumérico.");
                 continue;
             }
-
             return c;
         }
     }
