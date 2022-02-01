@@ -24,11 +24,12 @@ public class Main {
             LocalDate saturday = begin.with(temporalAdjuster);
             String satudayFormat = saturday.format(format);
 
-            if (saturday.getYear() == currentYear) {
-                System.out.println(satudayFormat + "\n");
-                begin = saturday;
-
+            if (saturday.getYear() != currentYear) {
+                break;
             }
+
+            System.out.println(satudayFormat + "\n");
+            begin = saturday;
         }
     }
 }
