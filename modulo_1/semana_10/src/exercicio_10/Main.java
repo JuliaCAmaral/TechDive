@@ -1,4 +1,4 @@
-package exercicio_8;
+package exercicio_10;
 
 import java.security.InvalidParameterException;
 import java.util.Scanner;
@@ -15,25 +15,43 @@ public class Main {
 
         Agencia agencia2 = banco.criarAgencia("São José");
 
+        banco.carregarDados();
+
         while (true) {
             String opcao = lerOpcao();
 
             try {
                 switch (opcao) {
                     case "1":
-                        criarContaCorrente();
+                        listarAgencias();
                         break;
 
                     case "2":
-                        sacar();
+                        listarContas();
                         break;
 
                     case "3":
-                        depositar();
+                        criarContaCorrente();
                         break;
 
                     case "4":
+                        sacar();
+                        break;
+
+                    case "5":
+                        depositar();
+                        break;
+
+                    case "6":
                         transferir();
+                        break;
+
+                    case "7":
+                        consultarSaldo();
+                        break;
+
+                    case "8":
+                        consultarExtrato();
                         break;
 
                     case "0":
@@ -61,13 +79,44 @@ public class Main {
 
     public static String lerOpcao() {
         System.out.println("Digite:");
-        System.out.println("1 - Criar conta");
-        System.out.println("2 - Sacar");
-        System.out.println("3 - Depositar");
-        System.out.println("4 - Transferir");
+        System.out.println("1 - Listar agências");
+        System.out.println("2 - Listar contas");
+        System.out.println("3 - Criar conta");
+        System.out.println("4 - Sacar");
+        System.out.println("5 - Depositar");
+        System.out.println("6 - Transferir");
+        System.out.println("7 - Consultar saldo");
+        System.out.println("8 - Consultar extrato");
         System.out.println("0 - Para sair");
 
         return input.nextLine();
+    }
+
+    public static void listarAgencias() {
+        System.out.println();
+
+        for(Agencia agencia : banco.getAgencias()) {
+            System.out.println(agencia);
+        }
+    }
+
+    public static void listarContas() {
+        Agencia agencia = lerAgencia();
+
+        System.out.println();
+
+        Conta[] contas = agencia.getContas();
+
+        for(Conta conta : contas) {
+            System.out.println(conta);
+        }
+
+        if (contas.length == 0) {
+            System.out.println("Nenhuma conta cadastrada.");
+        }
+
+        System.out.println("Operação realizada com sucesso.");
+
     }
 
     public static void criarContaCorrente() {
@@ -83,6 +132,7 @@ public class Main {
         System.out.println(conta);
         System.out.println("Operação realizada com sucesso.");
     }
+
 
     public static void sacar() {
         Agencia agencia = lerAgencia();
@@ -120,6 +170,36 @@ public class Main {
         double valor = lerValorDouble("Digite o valor da transferência:");
 
         banco.transferir(conta1, conta2, valor);
+
+        System.out.println("Operação realizada com sucesso.");
+    }
+
+    public static void consultarSaldo() {
+        Agencia agencia = lerAgencia();
+
+        Conta conta = lerConta(agencia);
+
+        System.out.println("Saldo atual:");
+
+        System.out.println(conta);
+
+        System.out.println("Operação realizada com sucesso.");
+    }
+
+    public static void consultarExtrato() {
+        Agencia agencia = lerAgencia();
+
+        Conta conta = lerConta(agencia);
+
+        System.out.println();
+
+        System.out.println(conta);
+
+        System.out.println("Extrato:");
+
+        for(Transacao transacao : conta.getExtrato()) {
+            System.out.println(transacao);
+        }
 
         System.out.println("Operação realizada com sucesso.");
     }
@@ -181,11 +261,14 @@ public class Main {
 
     public static Agencia lerAgencia() {
         return lerAgencia("Digite o código da agência ou 0 para sair.");
+
     }
 
     public static Agencia lerAgencia(String texto) {
         while (true) {
             System.out.println(texto);
+
+            listarAgencias();
 
             String entrada = input.nextLine();
 

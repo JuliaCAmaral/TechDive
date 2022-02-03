@@ -1,4 +1,4 @@
-package exercicio_8;
+package exercicio_9;
 
 import java.io.*;
 import java.security.InvalidParameterException;
@@ -66,6 +66,7 @@ public class Banco {
         if (codigo < 0 || codigo > agencias.size()){
             throw new InvalidParameterException("Agencia inválida.");
         }
+
         return agencias.get(codigo - 1);
     }
 
@@ -74,19 +75,51 @@ public class Banco {
     }
 
     public void salvarDados() {
-        try (BufferedReader br = new BufferedReader(new FileReader("dadosContas.csv"));
-             BufferedWriter bw = new BufferedWriter(new FileWriter("dadosContas.csv"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("dadosContas.csv"))) {
 
             for (Agencia agencia : getAgencias()) {
                 for (Conta conta : agencia.getContas()) {
-                    bw.write( agencia.getNumero() + "," + conta.getNumero() + "," + conta.getSaldo() + "," + conta.getCliente().getNome());
+                    bw.write( agencia.getNumero() + "," + conta.getNumero() + "," + conta.getSaldo() + ","
+                            + conta.getCliente().getNome() + "," + conta.getCliente().getCpf());
                     bw.newLine();
-                    bw.flush();
                 }
+            }
+
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void carregarDados() {
+        try (BufferedReader br = new BufferedReader(new FileReader("dadosContas.csv"))) {
+            String line = br.readLine();
+
+            while (line != null) {
+                String[] attributes = line.split(",");
+                Conta conta = carregarConta(attributes);
+
+                Agencia agencia = getAgencia(conta.getAgencia());
+
+                agencia.addConta(conta);
+                line = br.readLine();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private Conta carregarConta(String[] metadata) {
+        int agencia = Integer.parseInt(metadata[0]);
+        int IdConta = Integer.parseInt(metadata[1]);
+        double saldo = Double.parseDouble(metadata[2]);
+        String nome = metadata[3];
+        String cpf = metadata[4];
+
+        Conta conta = new ContaCorrente(IdConta, agencia, new Cliente(nome, cpf));
+        conta.setSaldo(saldo);
+
+        return conta;
     }
 }
