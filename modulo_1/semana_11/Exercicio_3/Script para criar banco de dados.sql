@@ -1,15 +1,15 @@
 CREATE TABLE "TechDive".Aluno (
-    IdAluno int PRIMARY KEY,
+    IdAluno serial PRIMARY KEY,
     Nome text,
     Fone text,
-    CPF int,
+    CPF text,
     DataNascimento date,
     Genero text,
     Ativo bool
 );
 
 CREATE TABLE "TechDive".Endereco (
-    IdEndereco int PRIMARY KEY,
+    IdEndereco serial PRIMARY KEY,
     Rua text,
     Numero text,
     Bairro text,
@@ -27,7 +27,7 @@ ALTER TABLE "TechDive".Endereco ADD CONSTRAINT FK_Endereco_2
     ON DELETE RESTRICT;
 
 CREATE TABLE "TechDive".Curso (
-    IdCurso int PRIMARY KEY,
+    IdCurso serial PRIMARY KEY,
     Nome text,
     Semestre int,
     Ativo bool
@@ -49,7 +49,7 @@ ALTER TABLE "TechDive".Matricula ADD CONSTRAINT FK_Matricula_2
     ON DELETE SET NULL;
 
 CREATE TABLE "TechDive".Professor (
-    IdProfessor int PRIMARY KEY,
+    IdProfessor serial PRIMARY KEY,
     Nome text,
     Graduacao text,
     Fone text,
