@@ -19,6 +19,8 @@ insert into university.cursos (nom_curso, cod_dpto) values ('Psicologia', 						
 insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Física', 			8);
 insert into university.cursos (nom_curso, cod_dpto) values ('Administração', 					9);
 insert into university.cursos (nom_curso, cod_dpto) values ('Engenharia Civil', 				10);
+insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Matemática', 		11);
+insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Química', 			12);
 
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Adriana Cruz', 		'2022-03-07', 1, 's');
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Bruno Souza', 		'2021-08-25', 2, 'n');
