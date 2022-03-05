@@ -1,6 +1,6 @@
 # Exercício 2
 
-##Inserção de Dados
+## Inserção de Dados
 
 Com base nas tabelas criadas no exercício 1, siga as instruções abaixo:
 
