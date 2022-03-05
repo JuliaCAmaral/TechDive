@@ -64,7 +64,7 @@ create table university.matriculas (
 	semestre	int,
 	mat_alu		int,
 	cod_disc	int,
-	nota		decimal,
+	nota		int,
 	faltas		int,
 	status		char,
 	ativo		boolean not null default true,
@@ -81,3 +81,5 @@ create table university.matriculas (
 		references university.disciplinas (cod_disc)
 			on delete cascade 
 );
+
+--alter table university.matriculas alter nota type decimal;
