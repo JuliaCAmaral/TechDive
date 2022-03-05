@@ -3,13 +3,13 @@ drop schema if exists university cascade;
 create schema university;
 
 create table university.departamentos (
-	cod_dpto	int primary key,
+	cod_dpto	serial primary key,
 	nome_dpto	text,
 	ativo		boolean not null default true
 );
 
 create table university.cursos (
-	cod_curso	int primary key,
+	cod_curso	serial primary key,
 	nom_curso	text,
 	cod_dpto	int,
 	ativo		boolean not null default true,
@@ -21,7 +21,7 @@ create table university.cursos (
 );
 
 create table university.alunos (
-	mat_alu		int primary key,
+	mat_alu		serial primary key,
 	nome		text,
 	dat_entrada	date,
 	cod_curso	int,
@@ -35,7 +35,7 @@ create table university.alunos (
 );
 
 create table university.disciplinas (
-	cod_disc		int primary key,
+	cod_disc		serial primary key,
 	nome_disc		text,
 	carga_horaria	decimal,
 	ativo			boolean not null default true
