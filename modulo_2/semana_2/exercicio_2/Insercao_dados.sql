@@ -17,10 +17,10 @@ insert into university.cursos (nom_curso, cod_dpto) values ('Licenciado em Educa
 insert into university.cursos (nom_curso, cod_dpto) values ('Ciência da Informação', 			6);
 insert into university.cursos (nom_curso, cod_dpto) values ('Psicologia', 						7);
 insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Física', 			8);
+insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Matemática', 		8);
+insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Química', 			8);
 insert into university.cursos (nom_curso, cod_dpto) values ('Administração', 					9);
 insert into university.cursos (nom_curso, cod_dpto) values ('Engenharia Civil', 				10);
-insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Matemática', 		11);
-insert into university.cursos (nom_curso, cod_dpto) values ('Bacharelado em Química', 			12);
 
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Adriana Cruz', 		'2022-03-07', 1, 's');
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Bruno Souza', 		'2021-08-25', 2, 'n');
@@ -32,6 +32,26 @@ insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('G
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Ian Duarte', 		'2022-03-07', 8, 'n');
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Joana Fontes', 		'2021-03-07', 9, 'n');
 insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Mariana Oliveira',	'2020-08-25', 10, 's');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Laura Fiúza', 		'2022-03-07', 1, 's');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Timur Osório', 		'2021-08-25', 1, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Mohamed Dorneles', 	'2020-08-25', 1, 's');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Ary Júdice', 		'2022-03-07', 1, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Cristovão Camelo', 	'2020-08-25', 2, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Indira Varejão', 	'2019-08-25', 2, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Emanuelle Gouveia',	'2018-08-25', 5, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Ivanilson Pastana', 	'2022-03-07', 5, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Nelsa Calheiros', 	'2021-03-07', 5, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Edir Toscano',		'2020-08-25', 4, 's');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Edson Boeira', 		'2022-03-07', 4, 's');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Zayn Prada', 		'2021-08-25', 4, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Zoe Aguiar', 		'2020-08-25', 4, 's');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Irene Lages', 		'2022-03-07', 6, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Patrícia Caldeira', 	'2020-08-25', 7, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Salomé Teles', 		'2019-08-25', 8, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Nuno Gadelha',		'2018-08-25', 8, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Aléxia Lucena', 		'2022-03-07', 11, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Ismael Lessa', 		'2021-03-07', 9, 'n');
+insert into university.alunos (nome, dat_entrada, cod_curso, cotista) values ('Mila Guedes',		'2020-08-25', 10, 's');
 
 insert into university.disciplinas (nome_disc, carga_horaria) values ('Anatomia Aplicada à Educação Física',	72);
 insert into university.disciplinas (nome_disc, carga_horaria) values ('Aprendizagem e Controle Motor',			72);
