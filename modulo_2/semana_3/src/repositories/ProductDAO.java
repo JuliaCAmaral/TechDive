@@ -73,6 +73,29 @@ public class ProductDAO {
         return product;
     }
 
+    public Product getByName(String name) throws SQLException {
+        String sql = "SELECT id, name, description FROM market.product WHERE name = ?";
+        Product product = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            preparedStatement.execute();
+
+            try (ResultSet resultSet = preparedStatement.getResultSet()){
+                while (resultSet.next() ) {
+                    product = new Product(name, resultSet.getString("description"));
+                    product.setId(resultSet.getInt("id"));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro ao buscar o produto. Motivo: "+ e.getMessage());
+            }
+        }
+        return product;
+    }
+
+
+
+
     public boolean update(int id, Product product) {
         String sql = "UPDATE market.product set name = ?, description = ? WHERE id = ?;";
 

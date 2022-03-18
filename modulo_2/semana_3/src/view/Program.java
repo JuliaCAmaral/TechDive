@@ -30,22 +30,26 @@ public class Program {
             try {
                 switch (option) {
                     case "1":
-                        System.out.println(createData(connection));
+                        System.out.println(create( connection));
                         break;
 
                     case "2":
-                        System.out.println(readData(connection));
+                        System.out.println(getAll(connection));
                         break;
 
                     case "3":
-                        System.out.println(searchAData(connection));
+                        System.out.println(getById(connection));
                         break;
 
                     case "4":
-                        System.out.println(updateData(connection));
+                        System.out.println(getByName(connection));
                         break;
 
                     case "5":
+                        System.out.println(updateData(connection));
+                        break;
+
+                    case "6":
                         System.out.println(deleteData(connection));
                         break;
 
@@ -60,6 +64,146 @@ public class Program {
         } catch (SQLException e) {
             System.err.println("Erro ao se conectar ao banco de dados. Motivo: " + e.getMessage());
         }
+    }
+
+    public static String readOption() {
+        System.out.println("\nDigite o número da operação:");
+        System.out.println("1 - Inserir dados");
+        System.out.println("2 - Listar todos dados de uma tabela");
+        System.out.println("3 - Buscar um dado por id de uma tabela");
+        System.out.println("4 - Buscar um dado por nome de uma tabela");
+        System.out.println("5 - Atualizar dados");
+        System.out.println("6 - Deletar dados");
+
+        return input.nextLine();
+    }
+
+    private static String create(Connection connection) {
+        TableEnum tableEnum = readOption(TableEnum.values(), "Qual tabela você gostaria de inserir os dados?");
+
+        switch (tableEnum) {
+            case MANUFACTURER:
+                System.out.print("Nome do fornecedor: ");
+                String manufacturerName = input.nextLine();
+
+                Manufacturer manufacturer = new Manufacturer(manufacturerName);
+                manufacturerDAO = new ManufacturerDAO(connection);
+
+                return manufacturerDAO.create(manufacturer) ? "Novo fornecedor cadastrado com sucesso.": "Não foi possível cadastrar o fornecedor.";
+
+            case CATEGORY:
+                System.out.print("Nome da categoria: ");
+                String categoryName = input.nextLine();
+
+                Category category = new Category(categoryName);
+                categoryDAO = new CategoryDAO(connection);
+
+                return categoryDAO.create(category) ? "Nova categoria cadastrada com sucesso." : "Não foi possível cadastrar a categoria.";
+
+            case PRODUCT:
+                System.out.print("Nome do produto: ");
+                String productName = input.nextLine();
+
+                System.out.print("Descrição do produto: ");
+                String productDescription= input.nextLine();
+
+                Product product = new Product(productName, productDescription);
+                productDAO = new ProductDAO(connection);
+
+                return productDAO.create(product) ? "Novo produto cadastrado com sucesso." : "Não foi possível cadastrar o produto.";
+        }
+        return ("-------------------------------------------");
+    }
+
+    private static Object getAll(Connection connection) throws SQLException {
+        TableEnum tableEnum = readOption(TableEnum.values(), "Qual tabela você gostaria de listar os dados?");
+
+        switch (tableEnum) {
+            case MANUFACTURER:
+                manufacturerDAO = new ManufacturerDAO(connection);
+                List<Manufacturer> manufacturers = manufacturerDAO.list();
+                manufacturers.forEach(m -> System.out.printf("Id: %s - Fornecedor: %s\n", m.getId(), m.getName()));
+                break;
+
+            case CATEGORY:
+                categoryDAO = new CategoryDAO(connection);
+                List<Category> categories = categoryDAO.list();
+                categories.forEach(c -> System.out.printf("Id: %s - Categoria: %s\n", c.getId(), c.getName()));
+                break;
+
+            case PRODUCT:
+                productDAO = new ProductDAO(connection);
+                List<Product> products = productDAO.list();
+                products.forEach(p -> System.out.printf("Id: %s - Produto: %s - %s\n", p.getId(), p.getName(), p.getDescription()));
+                break;
+        }
+        return ("--------------------------------------------");
+    }
+
+    private static String getById(Connection connection) throws SQLException {
+        TableEnum tableEnum = readOption(TableEnum.values(), "De qual tabela você gostaria de buscar os dados?");
+        int itemId = readId();
+
+        switch (tableEnum) {
+            case MANUFACTURER:
+                manufacturerDAO = new ManufacturerDAO(connection);
+                Manufacturer manufacturer = manufacturerDAO.getById(itemId);
+
+                if (!(manufacturer == null)) {
+                    return manufacturer.toString();
+                }
+
+            case CATEGORY:
+                categoryDAO = new CategoryDAO(connection);
+                Category category = categoryDAO.getById(itemId);
+
+                if (!(category == null)) {
+                    return category.toString();
+                }
+
+            case PRODUCT:
+                productDAO = new ProductDAO(connection);
+                Product product = productDAO.getById(itemId);
+
+                if (!(product == null)) {
+                    return product.toString();
+                }
+        }
+        return String.format("%s não encontrado.", tableEnum.getDisplayName());
+    }
+
+    private static String getByName(Connection connection) throws SQLException {
+        TableEnum tableEnum = readOption(TableEnum.values(), "De qual tabela você gostaria de buscar os dados?");
+        System.out.print("Digite o nome: ");
+        String name = input.nextLine();
+
+        switch (tableEnum) {
+            case MANUFACTURER:
+                manufacturerDAO = new ManufacturerDAO(connection);
+                Manufacturer manufacturer = manufacturerDAO.getByName(name);
+
+                if (!(manufacturer == null)) {
+                    return manufacturer.toString();
+                }
+
+            case CATEGORY:
+                categoryDAO = new CategoryDAO(connection);
+                Category category = categoryDAO.getByName(name);
+
+                if (!(category == null)) {
+                    return category.toString();
+                }
+
+
+            case PRODUCT:
+                productDAO = new ProductDAO(connection);
+                Product product = productDAO.getByName(name);
+
+                if (!(product == null)) {
+                    return product.toString();
+                }
+        }
+        return String.format("%s não encontrado.", tableEnum.getDisplayName());
     }
 
     private static String updateData(Connection connection) throws SQLException {
@@ -101,38 +245,6 @@ public class Program {
         return String.format("Não foi possível atualizar o/a %s.", tableEnum.getDisplayName());
     }
 
-    private static String searchAData(Connection connection) throws SQLException {
-        TableEnum tableEnum = readOption(TableEnum.values(), "De qual tabela você gostaria de buscar os dados?");
-        int itemId = readId();
-
-        switch (tableEnum) {
-            case MANUFACTURER:
-                manufacturerDAO = new ManufacturerDAO(connection);
-                Manufacturer manufacturer = manufacturerDAO.getById(itemId);
-
-                if (!(manufacturer == null)) {
-                    return String.format("Id: %s - Fornecedor: %s", manufacturer.getId(),manufacturer.getName());
-                }
-
-            case CATEGORY:
-                categoryDAO = new CategoryDAO(connection);
-                Category category = categoryDAO.getById(itemId);
-
-                if (!(category == null)) {
-                    return String.format("Id: %s - Categoria: %s", category.getId(),category.getName());
-                }
-
-            case PRODUCT:
-                productDAO = new ProductDAO(connection);
-                Product product = productDAO.getById(itemId);
-
-                if (!(product == null)) {
-                    return String.format("Id: %s - Produto: %s - %s", product.getId(),product.getName(), product.getDescription());
-                }
-        }
-        return String.format("%s não encontrado.", tableEnum.getDisplayName());
-    }
-
     private static String deleteData(Connection connection) throws SQLException {
         TableEnum tableEnum = readOption(TableEnum.values(), "De qual tabela você gostaria de deletar um dado?");
         int itemId = readId();
@@ -153,79 +265,6 @@ public class Program {
         return ("--------------------------------------------");
     }
 
-    private static Object readData(Connection connection) throws SQLException {
-        TableEnum tableEnum = readOption(TableEnum.values(), "Qual tabela você gostaria de listar os dados?");
-
-        switch (tableEnum) {
-            case MANUFACTURER:
-                manufacturerDAO = new ManufacturerDAO(connection);
-                List<Manufacturer> manufacturers = manufacturerDAO.list();
-                manufacturers.forEach(m -> System.out.printf("Id: %s - Fornecedor: %s\n", m.getId(), m.getName()));
-                break;
-
-            case CATEGORY:
-                categoryDAO = new CategoryDAO(connection);
-                List<Category> categories = categoryDAO.list();
-                categories.forEach(c -> System.out.printf("Id: %s - Categoria: %s\n", c.getId(), c.getName()));
-                break;
-
-            case PRODUCT:
-                productDAO = new ProductDAO(connection);
-                List<Product> products = productDAO.list();
-                products.forEach(p -> System.out.printf("Id: %s - Produto: %s - %s\n", p.getId(), p.getName(), p.getDescription()));
-                break;
-        }
-        return ("--------------------------------------------");
-    }
-
-    private static String createData(Connection connection) {
-        TableEnum tableEnum = readOption(TableEnum.values(), "Qual tabela você gostaria de inserir os dados?");
-
-        switch (tableEnum) {
-            case MANUFACTURER:
-                System.out.print("Nome do fornecedor: ");
-                String manufacturerName = input.nextLine();
-
-                Manufacturer manufacturer = new Manufacturer(manufacturerName);
-                manufacturerDAO = new ManufacturerDAO(connection);
-
-                return manufacturerDAO.create(manufacturer) ? "Novo fornecedor cadastrado com sucesso.": "Não foi possível cadastrar o fornecedor.";
-
-            case CATEGORY:
-                System.out.print("Nome da categoria: ");
-                String categoryName = input.nextLine();
-
-                Category category = new Category(categoryName);
-                categoryDAO = new CategoryDAO(connection);
-
-                return categoryDAO.create(category) ? "Nova categoria cadastrada com sucesso." : "Não foi possível cadastrar a categoria.";
-
-            case PRODUCT:
-                System.out.print("Nome do produto: ");
-                String productName = input.nextLine();
-
-                System.out.print("Descrição do produto: ");
-                String productDescription= input.nextLine();
-
-                Product product = new Product(productName, productDescription);
-                productDAO = new ProductDAO(connection);
-
-                return productDAO.create(product) ? "Novo produto cadastrado com sucesso." : "Não foi possível cadastrar o produto.";
-        }
-        return ("-------------------------------------------");
-    }
-
-    public static String readOption() {
-        System.out.println("\nDigite o número da operação:");
-        System.out.println("1 - Inserir dados");
-        System.out.println("2 - Listar todos dados de uma tabela");
-        System.out.println("3 - Buscar um dado de uma tabela");
-        System.out.println("4 - Atualizar dados");
-        System.out.println("5 - Deletar dados");
-
-        return input.nextLine();
-    }
-
     private static User readUser() {
         /*
         System.out.print("Digite o usuário do banco de dados: ");
@@ -236,7 +275,8 @@ public class Program {
 
         return new connetion.User(name, password);
          */
-        return new User("postgres", "postgres");
+        return new connetion.User("postgres", "postgres");
+
     }
 
     private static int readId() {

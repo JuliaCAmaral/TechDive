@@ -35,4 +35,8 @@ public class Product {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Id: %s - Produto: %s - %s", id,name, description);
+    }
 }

@@ -1,6 +1,7 @@
 package repositories;
 
 import entities.Category;
+import entities.Product;
 
 import java.sql.*;
 import java.util.*;
@@ -55,6 +56,26 @@ public class CategoryDAO {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+
+            try (ResultSet resultSet = preparedStatement.getResultSet()){
+                while (resultSet.next() ) {
+                    category = new Category(resultSet.getString("name"));
+                    category.setId(resultSet.getInt("id"));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro ao buscar a categoria. Motivo: "+ e.getMessage());
+            }
+        }
+        return category;
+    }
+
+    public Category getByName(String name) throws SQLException {
+        String sql = "SELECT id, name FROM market.category WHERE name = ?";
+        Category category = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
             preparedStatement.execute();
 
             try (ResultSet resultSet = preparedStatement.getResultSet()){

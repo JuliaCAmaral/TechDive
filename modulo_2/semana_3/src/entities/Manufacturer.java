@@ -25,4 +25,9 @@ public class Manufacturer {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Id: %s - Nome: %s", id,name);
+    }
+
 }

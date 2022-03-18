@@ -1,5 +1,6 @@
 package repositories;
 
+import entities.Category;
 import entities.Manufacturer;
 
 import java.sql.*;
@@ -55,6 +56,26 @@ public class ManufacturerDAO {
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setLong(1, id);
+            preparedStatement.execute();
+
+            try (ResultSet resultSet = preparedStatement.getResultSet()){
+                while (resultSet.next() ) {
+                    manufacturer = new Manufacturer(resultSet.getString("name"));
+                    manufacturer.setId(resultSet.getInt("id"));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro ao buscar o fornecedor. Motivo: "+ e.getMessage());
+            }
+        }
+        return manufacturer;
+    }
+
+    public Manufacturer getByName(String name) throws SQLException {
+        String sql = "SELECT id, name FROM market.manufacturer WHERE name = ?";
+        Manufacturer manufacturer = null;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
             preparedStatement.execute();
 
             try (ResultSet resultSet = preparedStatement.getResultSet()){
