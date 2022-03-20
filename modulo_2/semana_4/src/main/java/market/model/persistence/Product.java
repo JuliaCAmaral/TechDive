@@ -73,4 +73,9 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Id: %s - Produto: %s - %s", id,name, description);
+    }
 }

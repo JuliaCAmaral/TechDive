@@ -14,17 +14,18 @@ public class ProductDAO {
     }
 
     public void create(Product product) {
+        System.out.println("criando um produto");
         this.entityManager.persist(product);
     }
 
     public List<Product> listAll() {
-        String sql = "SELECT * FROM Product";
-        return this.entityManager.createNamedQuery(sql, Product.class).getResultList();
+        String jpql = "SELECT p FROM Product p";
+        return this.entityManager.createQuery(jpql, Product.class).getResultList();
     }
 
     public List<Product> listByName(String name) {
-        String sql = "SELECT * FROM Product WHERE name =:name";
-        return this.entityManager.createNamedQuery(sql, Product.class)
+        String jpql = "SELECT p FROM Product p WHERE p.name =:name";
+        return this.entityManager.createQuery(jpql, Product.class)
                 .setParameter("name", name.toLowerCase())
                 .getResultList();
     }
