@@ -18,13 +18,13 @@ public class ClientDAO {
     }
 
     public List<Client> listAll() {
-        String sql = "SELECT * FROM Client";
-        return this.entityManager.createNamedQuery(sql, Client.class).getResultList();
+        String sql = "SELECT c FROM Client c";
+        return this.entityManager.createQuery(sql, Client.class).getResultList();
     }
 
     public List<Client> listByName(String name) {
-        String sql = "SELECT * FROM Client WHERE name =:name";
-        return this.entityManager.createNamedQuery(sql, Client.class)
+        String sql = "SELECT c FROM Client c WHERE c.name =:name";
+        return this.entityManager.createQuery(sql, Client.class)
                 .setParameter("name", name.toLowerCase())
                 .getResultList();
     }

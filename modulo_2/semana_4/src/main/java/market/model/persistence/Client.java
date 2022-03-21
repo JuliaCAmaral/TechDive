@@ -21,6 +21,20 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private Set<ProductClient> requests;
 
+    public Client() {
+    }
+
+    public Client(String name, LocalDate birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
+    public Client(String name, String cpf, LocalDate birthDate) {
+        this.name = name;
+        this.cpf = cpf;
+        this.birthDate = birthDate;
+    }
+
     public long getId() {
         return id;
     }
@@ -59,5 +73,10 @@ public class Client {
 
     public void setRequests(Set<ProductClient> requests) {
         this.requests = requests;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Id: %s - Cliente: %s - %s", id,name, cpf);
     }
 }

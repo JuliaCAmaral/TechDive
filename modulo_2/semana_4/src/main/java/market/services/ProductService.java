@@ -109,6 +109,10 @@ public class ProductService {
         return products;
     }
 
+    public Product getById(long id) {
+        return productDAO.getById(id);
+    }
+
     private void getBeginTransaction() {
         this.LOG.info("Abrindo transição com o banco de dados...");
         entityManager.getTransaction().begin();
@@ -124,6 +128,18 @@ public class ProductService {
         if (product == null) {
             this.LOG.error("O Produto não existe");
             throw new RuntimeException("Product not Found");
+        }
+    }
+
+    private void validateIsNull(Product product) {
+        if (product == null) {
+            this.LOG.error("O Produto não existe");
+            throw new RuntimeException("Client not Found");
+        }
+
+        if (product.getName() == null || product.getName().isEmpty()) {
+            this.LOG.error("Nome do Produto está nulo.");
+            throw new RuntimeException("Customer name is null");
         }
     }
 }
