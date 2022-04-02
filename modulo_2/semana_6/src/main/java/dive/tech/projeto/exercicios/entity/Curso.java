@@ -1,5 +1,6 @@
 package dive.tech.projeto.exercicios.entity;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ public class Curso implements Serializable {
     private String nome;
 
     private List<Disciplina> disciplinas = new ArrayList<>();
+
+    public Curso() {
+    }
 
     public Curso(int i) {
         this.id = (long) i;
