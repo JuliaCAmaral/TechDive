@@ -1,7 +1,11 @@
 package dive.tech.projeto.exercicios.controller;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
-@Path("/projeto/curso")
+@Path("/curso")
 public class CursoController {
+
+    @GET
+    public void teste() {}
 }
