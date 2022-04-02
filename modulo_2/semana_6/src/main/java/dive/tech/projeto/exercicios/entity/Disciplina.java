@@ -15,6 +15,9 @@ public class Disciplina implements Serializable {
 
     private String nome;
 
+    public Disciplina() {
+    }
+
     public Disciplina(String nomeCurso, int i) {
         this.id = (long) i;
         this.nome = "Disciplina " + i + " do " + nomeCurso;

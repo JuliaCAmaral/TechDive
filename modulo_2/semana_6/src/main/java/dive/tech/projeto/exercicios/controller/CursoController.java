@@ -18,7 +18,6 @@ public class CursoController {
     @Produces("application/json")
     public Response listarCursos() {
         List<Curso> cursos = service.obterCursos();
-
         return Response
                 .ok(cursos)
                 .build();
@@ -42,7 +41,6 @@ public class CursoController {
         }
     }
 
-
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -56,6 +54,40 @@ public class CursoController {
         } catch (Exception e) {
             return Response
                     .ok(e.getMessage())
+                    .build();
+        }
+    }
+
+    @PUT
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response editarCurso(Curso curso) {
+        try {
+            service.editarCurso(curso);
+            return Response
+                    .ok(curso)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .ok(e.getMessage())
+                    .build();
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces("application/json")
+    public Response deletarCurso(@PathParam("id") Long id) {
+        try {
+            service.deletarCurso(id);
+            List<Curso> cursos = service.obterCursos();
+            return Response
+                    .ok(cursos)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .ok(e.getMessage())
+                    .status(Response.Status.BAD_REQUEST)
                     .build();
         }
     }

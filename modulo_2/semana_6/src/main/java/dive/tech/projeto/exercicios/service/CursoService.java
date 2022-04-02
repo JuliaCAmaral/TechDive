@@ -4,7 +4,6 @@ import dive.tech.projeto.exercicios.dao.CursoDao;
 import dive.tech.projeto.exercicios.entity.Curso;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.security.InvalidParameterException;
 import java.util.List;
 
 @ApplicationScoped
@@ -24,9 +23,16 @@ public class CursoService {
         return curso;
     }
 
-
     public Curso getById(Long id) {
         Curso curso = dao.getById(id);
         return curso;
+    }
+
+    public void editarCurso(Curso curso) {
+        dao.update(curso);
+    }
+
+    public void deletarCurso(Long id) {
+        dao.deletar(id);
     }
 }

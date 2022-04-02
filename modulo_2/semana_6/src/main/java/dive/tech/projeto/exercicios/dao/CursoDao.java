@@ -54,6 +54,21 @@ public class CursoDao {
         return curso;
     }
 
+    public void update(Curso cursoEditado) {
+        if (cursoEditado.getId() == null) {
+            throw new InvalidParameterException("Não foi informado o ID do curso.");
+        }
+
+        Curso curso = getById(cursoEditado.getId());
+        curso.setNome(cursoEditado.getNome());
+        curso.setDisciplinas(cursoEditado.getDisciplinas());
+    }
+
+    public void deletar(Long id) {
+        Curso curso = getById(id);
+        cursos.remove(curso);
+    }
+
     /**
      * Essa lista retornará três cursos: "Curso 1", "Curso 2" e "Curso 3".
      * Cada curso terá três disciplinas, e cada disciplina terá o nome "Disciplina X do Curso Y".
