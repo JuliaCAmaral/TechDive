@@ -1,6 +1,5 @@
 package dive.tech.projeto.exercicios.entity;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

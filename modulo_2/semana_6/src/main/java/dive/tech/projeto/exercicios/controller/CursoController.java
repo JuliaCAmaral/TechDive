@@ -24,6 +24,25 @@ public class CursoController {
                 .build();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces("application/json")
+    public Response getCurso(@PathParam("id") Long id) {
+        try {
+            Curso curso = service.getById(id);
+            return Response
+                    .ok(curso)
+                    .build();
+
+        } catch (Exception e) {
+            return Response
+                    .ok(e.getMessage())
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        }
+    }
+
+
     @POST
     @Consumes("application/json")
     @Produces("application/json")

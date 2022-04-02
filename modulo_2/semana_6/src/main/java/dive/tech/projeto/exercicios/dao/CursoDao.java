@@ -4,6 +4,7 @@ import dive.tech.projeto.exercicios.entity.Curso;
 import dive.tech.projeto.exercicios.entity.Disciplina;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,19 @@ public class CursoDao {
             cursos.add(curso);
         }
         return cursos;
+    }
+
+    public Curso getById(Long id) {
+        Curso curso = obterCursos()
+                .stream()
+                .filter(c -> c.getId().equals(id))
+                .findAny()
+                .orElse(null);
+
+        if (curso == null) {
+            throw new InvalidParameterException("Curso de ID " + id +" não encontrado.");
+        }
+        return curso;
     }
 
     /**
