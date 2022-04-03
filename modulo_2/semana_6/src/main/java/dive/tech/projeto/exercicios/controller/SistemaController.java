@@ -19,7 +19,6 @@ public class SistemaController {
             String valor = headers.getRequestHeaders().getFirst(nomeHeader);
             resposta += nomeHeader + ": " + valor + "\n";
         }
-
         return resposta;
     }
 
