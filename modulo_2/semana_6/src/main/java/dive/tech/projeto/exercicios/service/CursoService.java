@@ -12,7 +12,7 @@ public class CursoService {
     private CursoDao dao = new CursoDao();
 
     public List<Curso> obterCursos() {
-        return dao.obterCursos();
+        return dao.listar();
     }
 
     public Curso criarCurso(Curso curso) {
@@ -34,5 +34,9 @@ public class CursoService {
 
     public void deletarCurso(Long id) {
         dao.deletar(id);
+    }
+
+    public List<Curso> getByName(String nome) {
+        return dao.getByNome(nome);
     }
 }

@@ -7,6 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CursoDao {
@@ -21,7 +22,7 @@ public class CursoDao {
         return curso;
     }
 
-    public List<Curso> obterCursos() {
+    public List<Curso> listar() {
         return cursos;
     }
 
@@ -42,7 +43,7 @@ public class CursoDao {
     }
 
     public Curso getById(Long id) {
-        Curso curso = obterCursos()
+        Curso curso = listar()
                 .stream()
                 .filter(c -> c.getId().equals(id))
                 .findAny()
@@ -67,6 +68,16 @@ public class CursoDao {
     public void deletar(Long id) {
         Curso curso = getById(id);
         cursos.remove(curso);
+    }
+
+    public List<Curso> getByNome(String nome) {
+        if (nome == null || nome.isEmpty()) {
+            throw new InvalidParameterException("Nome informado estár nulo ou em branco.");
+        }
+        return listar()
+                .stream()
+                .filter(c -> c.getNome().toLowerCase().equals(nome.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     /**
