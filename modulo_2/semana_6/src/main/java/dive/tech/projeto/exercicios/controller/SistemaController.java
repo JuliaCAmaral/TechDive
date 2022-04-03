@@ -1,10 +1,10 @@
 package dive.tech.projeto.exercicios.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.NewCookie;
+import javax.ws.rs.core.Response;
 
 @Path("/sistema")
 public class SistemaController {
@@ -21,5 +21,23 @@ public class SistemaController {
         }
 
         return resposta;
+    }
+
+    @GET
+    @Path("/cookie")
+    @Produces("text/plain")
+    public String cookie(@HeaderParam("cookie") String cookies) {
+        return "Cookies encontrados: " + cookies;
+    }
+
+    @POST
+    @Path("/cookie")
+    @Produces("text/plain")
+    public Response cookies(@QueryParam("valorCookie") String valorCookie) {
+        NewCookie cookie = new NewCookie("Meu cookie", valorCookie);
+        return Response
+                .ok("Criei o cookie \"meuCookie\" com o valor \"" + valorCookie + "\"!")
+                .cookie(cookie)
+                .build();
     }
 }
