@@ -27,10 +27,17 @@ public class CursoController {
     @Path("/filtro")
     @Produces("application/json")
     public Response filtrarCursos(@QueryParam("nome") String nome) {
-        List<Curso> cursos = service.getByName(nome);
-        return Response
-                .ok(cursos)
-                .build();
+        try {
+            List<Curso> cursos = service.getByName(nome);
+            return Response
+                    .ok(cursos)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .ok(e.getMessage())
+                    .status(Response.Status.NOT_FOUND)
+                    .build();
+        }
     }
 
     @GET
