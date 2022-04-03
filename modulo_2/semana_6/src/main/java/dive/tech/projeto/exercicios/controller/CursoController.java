@@ -2,6 +2,7 @@ package dive.tech.projeto.exercicios.controller;
 
 import dive.tech.projeto.exercicios.entity.Curso;
 import dive.tech.projeto.exercicios.service.CursoService;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
@@ -49,7 +50,6 @@ public class CursoController {
             return Response
                     .ok(curso)
                     .build();
-
         } catch (Exception e) {
             return Response
                     .ok(e.getMessage())
@@ -61,7 +61,12 @@ public class CursoController {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public Response criarCurso(Curso curso) {
+    public Response criarCurso(Curso curso, @HeaderParam("Authorization") String authorization) {
+        if (StringUtils.isBlank(authorization) || !"senha123".equals(authorization)) {
+            return Response
+                    .status(Response.Status.FORBIDDEN)
+                    .build();
+        }
         try {
             service.criarCurso(curso);
             return Response
