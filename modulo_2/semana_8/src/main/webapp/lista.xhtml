@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:c="http://java.sun.com/jsf/core"
-      xmlns:p="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -23,21 +23,32 @@
         <h1 class="titulo-pagina">Lista de Compras</h1>
 
         <h:form id="form-cadastro-compra">
-            <p:outputLabel value="Item:" for="input-item" />
-            <p:panelGroup styleClass="input-campo-e-erro">
-                <p:inputText value="#{itemBean.item.nome}" id="input-item" maxlength="100"/>
-                <p:message for="input-item" style="font-size: 0.8rem" />
-                <p:commandButton value="+" action="#{itemBean.salvar}" styleClass="ui-button-secondary"/>
-            </p:panelGroup>
+
+            <h:panelGroup styleClass="input-campo-e-erro">
+                <p:outputLabel value="Item:" for="input-nome" />
+                <p:inputText value="#{itemBean.item.nome}" id="input-nome" maxlength="100"/>
+                <p:message for="input-nome" style="font-size: 0.8rem" />
+
+                <p:outputLabel value="Quantidade:" for="input-quantidade" />
+                <p:inputText value="#{itemBean.item.quantidade}" id="input-quantidade"/>
+                <p:message for="input-quantidade" style="font-size: 0.8rem" />
+
+                <p:selectOneMenu value="#{itemBean.item.unidade}">
+                    <c:selectItem itemValue="#{null}" itemLabel="-- selecione --" />
+                    <c:selectItems value="#{unidadesBean.unidades}" var="item" itemValue="#{item}" itemLabel="#{item}" />
+                </p:selectOneMenu>
+
+                <p:commandButton value="+" action="#{itemBean.salvar}" styleClass="ui-button-secondary" update="form-listar-compras"/>
+            </h:panelGroup>
         </h:form>
 
         <h:form id="form-listar-compras">
-            <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 150px;">
-                <c:selectItems value="#{listagemBean.itens}" var="item" itemLabel="#{item.nome}" itemValue="#{item}"/>
+            <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 150px; font-size: 0.8rem">
+                <c:selectItems value="#{listagemBean.itens}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}" style="font-size: 0.8rem" />
             </h:selectManyListbox>
 
             <p:commandButton value="-" action="#{listagemBean.remove()}"
-                             update="tb-compras"/>
+                             update="form-listar-compras"/>
         </h:form>
 
     </div>
