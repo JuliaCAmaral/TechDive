@@ -1,5 +1,6 @@
 package br.senai.compras.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -9,6 +10,7 @@ public class Item {
     private Long id;
 
     @NotNull(message = "{campo.obrigatorio}")
+    @NotEmpty(message = "{campo.obrigatorio}")
     @Size(min = 2, max = 100, message = "{campo.invalido.tamanho}")
     private String nome;
 

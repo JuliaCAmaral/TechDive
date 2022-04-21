@@ -124,8 +124,8 @@ body {
     margin: 2px 4px;
 }
 
-.btn-link-livro, .btn-link-leitor {
-    margin: 20px 0px;
+#link {
+    padding: 30px;
 }
 
 .footer {
