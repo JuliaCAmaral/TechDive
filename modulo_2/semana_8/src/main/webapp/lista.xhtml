@@ -22,33 +22,91 @@
 
         <h1 class="titulo-pagina">Lista de Compras</h1>
 
-        <h:form id="form-cadastro-compra">
+        <h:form id="formCadastroCompra" styleClass="form-compra-conteiner">
 
-            <h:panelGroup styleClass="input-campo-e-erro">
-                <p:outputLabel value="Item:" for="input-nome" />
-                <p:inputText value="#{itemBean.item.nome}" id="input-nome" maxlength="100"/>
-                <p:message for="input-nome" style="font-size: 0.8rem" />
+            <p:panelGrid id="panel-cadastro-livro" style="width: 450px">
 
-                <p:outputLabel value="Quantidade:" for="input-quantidade" />
-                <p:inputText value="#{itemBean.item.quantidade}" id="input-quantidade"/>
-                <p:message for="input-quantidade" style="font-size: 0.8rem" />
+                <p:row>
+                    <p:column colspan="2">
+                        <h3>Adicionar item</h3>
+                    </p:column>
+                </p:row>
 
-                <p:selectOneMenu value="#{itemBean.item.unidade}">
-                    <c:selectItem itemValue="#{null}" itemLabel="-- selecione --" />
-                    <c:selectItems value="#{unidadesBean.unidades}" var="item" itemValue="#{item}" itemLabel="#{item}" />
-                </p:selectOneMenu>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Nome:" for="inputNome" />
+                    </p:column>
+                    <p:column>
+                        <h:panelGroup styleClass="input-campo-e-erro">
+                            <p:inputText value="#{itemBean.item.nome}" id="inputNome" maxlength="100"/>
+                            <p:message for="inputNome" />
+                        </h:panelGroup>
+                    </p:column>
+                </p:row>
 
-                <p:commandButton value="+" action="#{itemBean.salvar}" styleClass="ui-button-secondary" update="form-listar-compras"/>
-            </h:panelGroup>
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Quantidade:" for="inputQuantidade" />
+                    </p:column>
+                    <p:column>
+                        <h:panelGroup styleClass="input-campo-e-erro">
+                            <p:inputText value="#{itemBean.item.quantidade}" id="inputQuantidade"/>
+                            <p:message for="inputQuantidade" />
+                        </h:panelGroup>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="Unidade:" for="inputUnidade" />
+                    </p:column>
+                    <p:column>
+                        <h:panelGroup styleClass="input-campo-e-erro">
+                            <p:selectOneMenu value="#{itemBean.item.unidade}" id="inputUnidade">
+                                <c:selectItem itemValue="#{null}" itemLabel="-- selecione --" />
+                                <c:selectItems value="#{unidadesBean.unidades}" var="item" itemValue="#{item}" itemLabel="#{item}" />
+                            </p:selectOneMenu>
+                            <p:message for="inputUnidade" />
+                        </h:panelGroup>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <p:outputLabel value="" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Adicionar" action="#{itemBean.salvar}" styleClass="ui-button-secondary" update="formCadastroCompra formListarCompras"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+
         </h:form>
 
-        <h:form id="form-listar-compras">
-            <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 150px; font-size: 0.8rem">
-                <c:selectItems value="#{listagemBean.itens}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}" style="font-size: 0.8rem" />
-            </h:selectManyListbox>
+        <h:form id="formListarCompras">
 
-            <p:commandButton value="-" action="#{listagemBean.remove()}"
-                             update="form-listar-compras"/>
+            <p:panelGrid style="width: 450px">
+
+                <p:row>
+                    <p:column colspan="2">
+                        <h3>Lista de itens</h3>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 260px">
+                            <c:selectItems value="#{listagemBean.itens}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
+                        </h:selectManyListbox>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Remover" action="#{listagemBean.remove()}"
+                                         update="formListarCompras"/>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
         </h:form>
 
     </div>
