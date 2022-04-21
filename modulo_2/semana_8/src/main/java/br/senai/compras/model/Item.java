@@ -2,7 +2,6 @@ package br.senai.compras.model;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.text.Format;
 import java.util.Objects;
 
 public class Item {
@@ -14,7 +13,7 @@ public class Item {
     private String nome;
 
     @NotNull(message = "{campo.obrigatorio}")
-    private double quantidade;
+    private Double quantidade;
 
     @NotNull(message = "{campo.obrigatorio}")
     private String unidade;
@@ -59,11 +58,11 @@ public class Item {
         this.nome = nome;
     }
 
-    public double getQuantidade() {
+    public Double getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(double quantidade) {
+    public void setQuantidade(Double quantidade) {
         this.quantidade = quantidade;
     }
 

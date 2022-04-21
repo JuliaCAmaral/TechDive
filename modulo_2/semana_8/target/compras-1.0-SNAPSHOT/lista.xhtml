@@ -50,7 +50,10 @@
                     </p:column>
                     <p:column>
                         <h:panelGroup styleClass="input-campo-e-erro">
-                            <p:inputText value="#{itemBean.item.quantidade}" id="inputQuantidade"/>
+                            <p:inputText value="#{itemBean.item.quantidade}" id="inputQuantidade" required="true" minValue="0.1" maxValue="1000000" decimalPlaces="1">
+                                <c:validator validatorId="QuantidadeValidator" />
+                                <c:attribute name="nome-campo" value="Quantidade" />
+                            </p:inputText>
                             <p:message for="inputQuantidade" />
                         </h:panelGroup>
                     </p:column>
@@ -96,7 +99,7 @@
 
                 <p:row>
                     <p:column>
-                        <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 300px">
+                        <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 260px">
                             <c:selectItems value="#{listagemBean.itens}" var="item" itemLabel="#{item.descricao}" itemValue="#{item}" />
                         </h:selectManyListbox>
                     </p:column>
