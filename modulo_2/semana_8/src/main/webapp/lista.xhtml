@@ -3,18 +3,44 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:c="http://java.sun.com/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/html">
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Lista de Compras</title>
+    <h:outputStylesheet name="css/styles.css" />
 </h:head>
-
-
 
 <h:body>
 
-    Listagem
+    <div class="main">
+
+        <c:metadata>
+            <c:event type="preRenderView" listener="#{listagemBean.onload}" />
+        </c:metadata>
+
+        <h1 class="titulo-pagina">Lista de Compras</h1>
+
+        <h:form id="form-cadastro-compra">
+            <p:outputLabel value="Item:" for="input-item" />
+            <p:panelGroup styleClass="input-campo-e-erro">
+                <p:inputText value="#{itemBean.item.nome}" id="input-item" maxlength="100"/>
+                <p:message for="input-item" style="font-size: 0.8rem" />
+                <p:commandButton value="+" action="#{itemBean.salvar}" styleClass="ui-button-secondary"/>
+            </p:panelGroup>
+        </h:form>
+
+        <h:form id="form-listar-compras">
+            <h:selectManyListbox value="#{listagemBean.itensSelected}" style="min-width: 150px;">
+                <c:selectItems value="#{listagemBean.itens}" var="item" itemLabel="#{item.nome}" itemValue="#{item}"/>
+            </h:selectManyListbox>
+
+            <p:commandButton value="-" action="#{listagemBean.remove()}"
+                             update="tb-compras"/>
+        </h:form>
+
+    </div>
 
 </h:body>
 </html>
