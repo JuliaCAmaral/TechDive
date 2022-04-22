@@ -14,5 +14,30 @@
 
 <h:body>
 
+    <div class="main">
+        <c:metadata>
+            <c:event type="preRenderView" listener="#{listagemBean.onload}" />
+        </c:metadata>
+
+        <h1 class="titulo-pagina">Lista de Compras</h1>
+
+        <h:form id="formCompras">
+
+            <p:dataTable id="tbCompras" value="#{listagemBean.itens}" var="item" emptyMessage="Nenhum item adicionado."
+                         allowUnsorting="true" sortMode="single">
+                <p:column headerText="Lista de Compras">
+                    <h:outputText value="#{item.descricao}"/>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <p:link value="Voltar" outcome="lista" style="padding: 30px"/>
+
+    </div>
+
+
+
+
 </h:body>
 </html>
