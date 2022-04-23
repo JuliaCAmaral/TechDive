@@ -3,6 +3,7 @@ package projeto.business;
 import org.apache.commons.lang3.StringUtils;
 import projeto.dto.EstudanteDTO;
 import projeto.dto.TurmaDTO;
+import projeto.entity.Endereco;
 import projeto.entity.Estudante;
 import projeto.entity.Turma;
 import projeto.exception.BusinessException;
@@ -16,6 +17,9 @@ public class EstudanteBusiness {
 
     @Inject
     private EstudanteRepository estudanteRepository;
+
+    @Inject
+    private EnderecoBusiness enderecoBusiness;
 
     public void cadastrar(EstudanteDTO estudanteDTO) throws BusinessException {
         validarCadastrar(estudanteDTO);
@@ -37,12 +41,13 @@ public class EstudanteBusiness {
         estudante.setEmail(estudanteDTO.getEmail());
         estudante.setDataNascimento(estudanteDTO.getDataNascimento());
 
-        Turma turma = estudanteRepository.find(Turma.class, estudanteDTO.getIdTurma());
+        Endereco endereco = enderecoBusiness.inserir(estudanteDTO.getEndereco());
+        estudante.setEndereco(endereco);
 
+        Turma turma = estudanteRepository.find(Turma.class, estudanteDTO.getIdTurma());
         if (turma == null) {
             throw new BusinessException("Turma não encontrada");
         }
-
         estudante.setTurma(turma);
 
         if (estudante.getIdEstudante() != null) {
@@ -65,11 +70,17 @@ public class EstudanteBusiness {
         }
 
         if (estudanteDTO.getIdTurma() == null) {
-            erros.add("A turma é inválida blablabla.");
+            erros.add("A turma é inválida.");
         }
 
         if (StringUtils.isBlank(estudanteDTO.getEmail())) {
-            erros.add("O e-mail do estudante é inválido.");
+            erros.add("O email do estudante é inválido.");
+        }
+
+        try {
+            enderecoBusiness.validarEndereco(estudanteDTO.getEndereco());
+        } catch (BusinessException e) {
+            erros.addAll(e.getErros());
         }
 
         if (!erros.isEmpty()) {

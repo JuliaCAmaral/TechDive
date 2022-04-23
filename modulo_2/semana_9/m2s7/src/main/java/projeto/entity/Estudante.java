@@ -1,11 +1,6 @@
 package projeto.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -23,6 +18,9 @@ public class Estudante {
 
     private Date dataNascimento;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Endereco endereco;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Turma turma;
 
@@ -32,14 +30,6 @@ public class Estudante {
 
     public void setIdEstudante(Long idEstudante) {
         this.idEstudante = idEstudante;
-    }
-
-    public Turma getTurma() {
-        return turma;
-    }
-
-    public void setTurma(Turma turma) {
-        this.turma = turma;
     }
 
     public String getNome() {
@@ -64,5 +54,21 @@ public class Estudante {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 }

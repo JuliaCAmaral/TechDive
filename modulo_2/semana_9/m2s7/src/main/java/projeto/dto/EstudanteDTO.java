@@ -1,5 +1,6 @@
 package projeto.dto;
 
+import projeto.entity.Endereco;
 import projeto.entity.Estudante;
 
 import java.io.Serializable;
@@ -19,7 +20,10 @@ public class EstudanteDTO implements Serializable {
 
     private Date dataNascimento;
 
+    private EnderecoDTO endereco;
+
     public EstudanteDTO() {
+        endereco = new EnderecoDTO();
     }
 
     public EstudanteDTO(Long idEstudante, String nome) {
@@ -73,5 +77,13 @@ public class EstudanteDTO implements Serializable {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public EnderecoDTO getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoDTO endereco) {
+        this.endereco = endereco;
     }
 }

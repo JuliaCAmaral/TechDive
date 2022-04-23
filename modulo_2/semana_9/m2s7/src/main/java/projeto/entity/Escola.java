@@ -13,13 +13,14 @@ public class Escola {
     @Column(name = "id_escola")
     private Long id;
 
-    private String nome;
+    private String nome; //campo obrigatorio
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Endereco endereco;
+    private Endereco endereco; //campo obrigatorio
 
     private Date dataDeCriacao;
 
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Turma> turmas = new ArrayList<>();
 
     public Long getId() {

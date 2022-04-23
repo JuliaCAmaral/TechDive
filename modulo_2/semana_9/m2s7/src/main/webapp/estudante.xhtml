@@ -26,42 +26,78 @@
         </p:messages>
 
         <div class="grid">
-            <div class="col-12">
-                <div class="col-2">
-                    <p:outputLabel for="nomeEstudante" value="Nome do estudante: "/>
-                    <p:inputText id="nomeEstudante" value="#{estudanteCadastroWebBean.estudanteDTO.nome}"/>
+            <p:fieldset legend="Dados Pessoais"  style="width: 80%; border: 1px solid #0099ff; margin: 15px">
+                <div class="col-12">
+                    <div class="col-2">
+                        <p:outputLabel for="nomeEstudante" value="Nome do estudante: "/>
+                        <p:inputText id="nomeEstudante" value="#{estudanteCadastroWebBean.estudanteDTO.nome}"/>
+                    </div>
                 </div>
-            </div>
+                <div class="col-12">
+                    <div class="col-2">
+                        <p:outputLabel for="dataNascimento" value="Data de nascimento: "/>
+                        <p:calendar id="dataNascimento"
+                                    pattern="dd/MM/yyyy"
+                                    value="#{estudanteCadastroWebBean.estudanteDTO.dataNascimento}"/>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-2">
+                        <p:outputLabel for="email" value="E-mail: "/>
+                        <p:inputText id="email" value="#{estudanteCadastroWebBean.estudanteDTO.email}"/>
+                    </div>
+                </div>
+            </p:fieldset>
 
-            <div class="col-12">
-                <div class="col-2">
-                    <p:outputLabel for="dataNascimento" value="Data de nascimento: "/>
-                    <p:calendar id="dataNascimento"
-                                pattern="dd/MM/yyyy"
-                                value="#{estudanteCadastroWebBean.estudanteDTO.dataNascimento}"/>
-                </div>
-            </div>
+            <p:fieldset legend="Endereço"  style="width: 80%; border: 1px solid #0099ff; margin: 15px">
 
-            <div class="col-12">
                 <div class="col-2">
-                    <p:outputLabel for="email" value="E-mail: "/>
-                    <p:inputText id="email" value="#{estudanteCadastroWebBean.estudanteDTO.email}"/>
+                    <p:outputLabel for="enderecoRua" value="Rua: "/>
+                    <p:inputText id="enderecoRua" value="#{estudanteCadastroWebBean.estudanteDTO.endereco.rua}"/>
                 </div>
-            </div>
 
-            <div class="col-12">
                 <div class="col-2">
-                    <p:outputLabel for="turma" value="Turma: "/>
-                    <p:selectOneMenu id="turma" value="#{estudanteCadastroWebBean.estudanteDTO.idTurma}">
-                        <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
-                        <f:selectItems value="#{estudanteCadastroWebBean.turmas}"
-                                       var="turma"
-                                       itemLabel="#{turma.nome}"
-                                       itemValue="#{turma.idTurma}"
-                        />
-                    </p:selectOneMenu>
+                    <p:outputLabel for="enderecoNumero" value="Número: "/>
+                    <p:inputText id="enderecoNumero" value="#{estudanteCadastroWebBean.estudanteDTO.endereco.numero}"/>
                 </div>
-            </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoBairro" value="Bairro: "/>
+                    <p:inputText id="enderecoBairro" value="#{estudanteCadastroWebBean.estudanteDTO.endereco.bairro}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoCidade" value="Cidade: "/>
+                    <p:inputText id="enderecoCidade" value="#{estudanteCadastroWebBean.estudanteDTO.endereco.cidade}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoEstado" value="Estado: "/>
+                    <p:inputText id="enderecoEstado" value="#{estudanteCadastroWebBean.estudanteDTO.endereco.estado}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoPais" value="País: "/>
+                    <p:inputText id="enderecoPais" value="#{estudanteCadastroWebBean.estudanteDTO.endereco.pais}"/>
+                </div>
+
+            </p:fieldset>
+
+            <p:fieldset legend="Seleção da Turma" style="width: 80%; border: 1px solid #0099ff; margin: 15px">
+                <div class="col-12">
+                    <div class="col-2">
+                        <p:outputLabel for="turma" value="Turma: "/>
+                        <p:selectOneMenu id="turma" value="#{estudanteCadastroWebBean.estudanteDTO.idTurma}">
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                            <f:selectItems value="#{estudanteCadastroWebBean.turmas}"
+                                           var="turma"
+                                           itemLabel="#{turma.nome}"
+                                           itemValue="#{turma.idTurma}"
+                            />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+            </p:fieldset>
 
             <div class="col-12">
                 <div class="col-3 m-1">
