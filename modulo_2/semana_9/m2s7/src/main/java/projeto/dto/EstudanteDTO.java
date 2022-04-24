@@ -1,6 +1,5 @@
 package projeto.dto;
 
-import projeto.entity.Endereco;
 import projeto.entity.Estudante;
 
 import java.io.Serializable;
@@ -37,6 +36,7 @@ public class EstudanteDTO implements Serializable {
         this.nome = estudante.getNome();
         this.email = estudante.getEmail();
         this.dataNascimento = estudante.getDataNascimento();
+        this.endereco = new EnderecoDTO(estudante.getEndereco());
     }
 
     public Long getIdEstudante() {

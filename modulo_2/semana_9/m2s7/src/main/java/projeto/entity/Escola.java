@@ -6,17 +6,24 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@NamedQuery(
+        name = Escola.GET_ESCOLASDTO,
+        query = "SELECT new projeto.dto.EscolaDTO(e.id, e.nome) " +
+                "FROM Escola e " +
+                "ORDER BY e.id")
 public class Escola {
+
+    public static final String GET_ESCOLASDTO = "GET_ESCOLASDTO";
 
     @Id
     @GeneratedValue
     @Column(name = "id_escola")
     private Long id;
 
-    private String nome; //campo obrigatorio
+    private String nome;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Endereco endereco; //campo obrigatorio
+    private Endereco endereco;
 
     private Date dataDeCriacao;
 

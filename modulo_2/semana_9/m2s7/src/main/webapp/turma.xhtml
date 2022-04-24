@@ -28,6 +28,23 @@
         <p:tabView>
             <p:tab title="Dados cadastrais">
                 <div class="grid">
+
+                    <div class="col-12">
+                        <div class="col-2">
+                            <p:outputLabel for="listaEscolas" value="Escola: "/>
+                            <p:selectOneMenu id="listaEscolas"
+                                             converter="omnifaces.SelectItemsConverter"
+                                             value="#{turmaCadastroWebBean.turmaDTO.escola}">
+                                <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                                <f:selectItems value="#{turmaCadastroWebBean.escolas}"
+                                               var="escola"
+                                               itemLabel="#{escola.nome}"
+                                               itemValue="#{escola}"/>
+                                <p:ajax process="@this"/>
+                            </p:selectOneMenu>
+                        </div>
+                    </div>
+
                     <div class="col-12">
                         <div class="col-2">
                             <p:outputLabel for="nomeTurma" value="Nome da turma: "/>

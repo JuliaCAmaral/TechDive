@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import projeto.dto.EstudanteDTO;
 import projeto.dto.FiltroTurmaDTO;
 import projeto.dto.TurmaDTO;
+import projeto.entity.Escola;
 import projeto.entity.Estudante;
 import projeto.entity.Turma;
 import projeto.exception.BusinessException;
@@ -17,6 +18,9 @@ public class TurmaBusiness {
 
     @Inject
     private TurmaRepository turmaRepository;
+
+    @Inject
+    private EscolaBusiness escolaBusiness;
 
     public void cadastrar(TurmaDTO turmaDTO) throws BusinessException {
         validarCadastrar(turmaDTO);
@@ -37,6 +41,9 @@ public class TurmaBusiness {
         turma.setNome(turmaDTO.getNome());
         turma.setDataInicio(turmaDTO.getDataInicio());
         turma.setDataTermino(turmaDTO.getDataTermino());
+
+        Escola escola = escolaBusiness.getById(turmaDTO.getEscola().getId());
+        turma.setEscola(escola);
 
         for (Estudante estudante : turma.getEstudantes()) {
             if (turmaDTO.getEstudantes()
@@ -68,6 +75,10 @@ public class TurmaBusiness {
 
     private void validarCadastrar(TurmaDTO turmaDTO) throws BusinessException {
         List<String> erros = new ArrayList<>();
+
+        if (turmaDTO.getEscola() == null) {
+            erros.add("A escola é inválida.");
+        }
 
         if (StringUtils.isBlank(turmaDTO.getNome())) {
             erros.add("O nome da turma é inválido.");

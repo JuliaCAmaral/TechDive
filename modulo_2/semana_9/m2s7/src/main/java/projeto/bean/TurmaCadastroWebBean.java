@@ -3,9 +3,12 @@ package projeto.bean;
 import org.omnifaces.cdi.Param;
 import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Faces;
+import projeto.dto.EscolaDTO;
 import projeto.dto.EstudanteDTO;
 import projeto.dto.TurmaDTO;
 import projeto.exception.BusinessException;
+import projeto.service.EscolaService;
+import projeto.service.EstudanteService;
 import projeto.service.TurmaService;
 import projeto.utils.MessageUtils;
 
@@ -26,10 +29,17 @@ public class TurmaCadastroWebBean implements Serializable {
     @Inject
     private TurmaService turmaService;
 
+    @Inject
+    private EscolaService escolaService;
+
     @Param(name = "idTurma")
     private Long idTurma;
 
     private TurmaDTO turmaDTO = new TurmaDTO();
+
+    private EscolaDTO escolaSelecionada;
+
+    private List<EscolaDTO> escolas = new ArrayList<>();
 
     private EstudanteDTO estudanteSelecionado;
 
@@ -46,6 +56,7 @@ public class TurmaCadastroWebBean implements Serializable {
             }
         }
         estudantesSemTurmas = turmaService.consultarEstudantesSemTurmas();
+        escolas = escolaService.consultarEscolas();
     }
 
     public void cadastrar() {
@@ -93,6 +104,22 @@ public class TurmaCadastroWebBean implements Serializable {
 
     public void setEstudanteSelecionado(EstudanteDTO estudanteSelecionado) {
         this.estudanteSelecionado = estudanteSelecionado;
+    }
+
+    public List<EscolaDTO> getEscolas() {
+        return escolas;
+    }
+
+    public void setEscolas(List<EscolaDTO> escolas) {
+        this.escolas = escolas;
+    }
+
+    public EscolaDTO getEscolaSelecionada() {
+        return escolaSelecionada;
+    }
+
+    public void setEscolaSelecionada(EscolaDTO escolaSelecionada) {
+        this.escolaSelecionada = escolaSelecionada;
     }
 
     public List<EstudanteDTO> getEstudantesSemTurmas() {

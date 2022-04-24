@@ -29,6 +29,9 @@ public class Turma {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "turma")
     private List<Estudante> estudantes = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Escola escola;
+
     public Long getIdTurma() {
         return idTurma;
     }
@@ -67,5 +70,13 @@ public class Turma {
 
     public void setEstudantes(List<Estudante> estudantes) {
         this.estudantes = estudantes;
+    }
+
+    public Escola getEscola() {
+        return escola;
+    }
+
+    public void setEscola(Escola escola) {
+        this.escola = escola;
     }
 }

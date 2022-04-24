@@ -23,6 +23,8 @@ public class TurmaDTO implements Serializable {
 
     private List<EstudanteDTO> estudantes = new ArrayList<>();
 
+    private EscolaDTO escola;
+
     private int quantidadeEstudantes;
 
     private String status;
@@ -111,5 +113,13 @@ public class TurmaDTO implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public EscolaDTO getEscola() {
+        return escola;
+    }
+
+    public void setEscola(EscolaDTO escola) {
+        this.escola = escola;
     }
 }

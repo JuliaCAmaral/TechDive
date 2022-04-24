@@ -17,9 +17,7 @@ public class EnderecoBusiness {
 
     public Endereco inserir(EnderecoDTO enderecoDTO) throws BusinessException {
         validarEndereco(enderecoDTO);
-        Endereco endereco = cadastrarEnderecoNoBanco(enderecoDTO);
-
-        return endereco;
+        return cadastrarEnderecoNoBanco(enderecoDTO);
     }
 
     public void validarEndereco(EnderecoDTO enderecoDTO) throws BusinessException {
