@@ -10,8 +10,8 @@ public class EnderecoDTO implements Serializable {
 
     private Long id;
 
-    private String rua; //campo obrigatorio
-    private String numero;//campo obrigatorio
+    private String rua;
+    private String numero;
     private String bairro;
     private String cidade;
     private String estado;

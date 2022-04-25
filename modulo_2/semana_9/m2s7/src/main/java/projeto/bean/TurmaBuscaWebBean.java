@@ -17,7 +17,7 @@ import java.util.List;
 
 @ViewScoped
 @Named("buscaTurmaWebBean")
-public class BuscaTurmaWebBean implements Serializable {
+public class TurmaBuscaWebBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

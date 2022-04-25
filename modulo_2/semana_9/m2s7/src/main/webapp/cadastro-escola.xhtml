@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsf/core"
+      xml:lang="en"
+      lang="en">
+
+<h:head>
+    <title>Cadastro de turma</title>
+    <link rel="stylesheet" href="https://unpkg.com/primeflex@3.1.0/primeflex.css"/>
+</h:head>
+
+<h:body style="margin: 0 !important;">
+    <ui:include src="template/_navbar.xhtml"/>
+    <c:metadata>
+        <c:viewAction action="#{escolaCadastroWebBean.inicializar()}"/>
+    </c:metadata>
+
+    <h:form id="home">
+        <p:messages id="messages" showDetail="true" showIcon="false" showSummary="false" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <div class="grid">
+            <p:fieldset legend="Dados Cadastrais" style="width: 80%; border: 1px solid #0099ff; margin: 15px">
+                <div class="col-2">
+                    <p:outputLabel for="nomeEscola" value="Nome da Escola: "/>
+                    <p:inputText id="nomeEscola" value="#{escolaCadastroWebBean.escolaDTO.nome}"/>
+                </div>
+                <div class="col-2">
+                    <p:outputLabel for="dataDeCriacao" value="Data de criação: "/>
+                    <p:calendar id="dataDeCriacao"
+                                pattern="dd/MM/yyyy"
+                                value="#{escolaCadastroWebBean.escolaDTO.dataDeCriacao}"/>
+                </div>
+            </p:fieldset>
+            <p:fieldset legend="Endereço" style="width: 80%; border: 1px solid #0099ff; margin: 15px">
+                <div class="col-2">
+                    <p:outputLabel for="enderecoRua" value="Rua: "/>
+                    <p:inputText id="enderecoRua" value="#{escolaCadastroWebBean.escolaDTO.endereco.rua}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoNumero" value="Número: "/>
+                    <p:inputText id="enderecoNumero" value="#{escolaCadastroWebBean.escolaDTO.endereco.numero}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoBairro" value="Bairro: "/>
+                    <p:inputText id="enderecoBairro" value="#{escolaCadastroWebBean.escolaDTO.endereco.bairro}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoCidade" value="Cidade: "/>
+                    <p:inputText id="enderecoCidade" value="#{escolaCadastroWebBean.escolaDTO.endereco.cidade}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoEstado" value="Estado: "/>
+                    <p:inputText id="enderecoEstado" value="#{escolaCadastroWebBean.escolaDTO.endereco.estado}"/>
+                </div>
+
+                <div class="col-2">
+                    <p:outputLabel for="enderecoPais" value="País: "/>
+                    <p:inputText id="enderecoPais" value="#{escolaCadastroWebBean.escolaDTO.endereco.pais}"/>
+                </div>
+            </p:fieldset>
+
+            <p:fieldset legend="Seleção de Turmas" style="width: 80%; border: 1px solid #0099ff; margin: 15px">
+
+                <h:selectManyListbox value="#{escolaCadastroWebBean.turmasSelecionadas}"
+                                     style="width: 80%; font-size: 1.1rem;">
+                    <c:selectItems value="#{escolaCadastroWebBean.turmasDisponiveis}"
+                                   var="turma" itemLabel="#{turma.nome}"
+                                   itemValue="#{turma}" />
+                </h:selectManyListbox>
+
+            </p:fieldset>
+
+            <div class="col-12">
+                <div class="col-3 m-1">
+                    <p:commandButton id="botaoCadastrar"
+                                     process="@form"
+                                     value="Cadastrar"
+                                     action="#{escolaCadastroWebBean.cadastrar()}"/>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</h:body>
+</html>

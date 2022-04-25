@@ -93,7 +93,6 @@ public class EstudanteBusiness {
         if (estudante == null) {
             throw new BusinessException("Estudante não encontrado através do ID " + idEstudante + ".");
         }
-
         return new EstudanteDTO(estudante);
     }
 }

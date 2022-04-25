@@ -3,7 +3,11 @@ package projeto.dto;
 import projeto.entity.Escola;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EscolaDTO implements Serializable {
 
@@ -16,6 +20,8 @@ public class EscolaDTO implements Serializable {
     private EnderecoDTO endereco;
 
     private Date dataDeCriacao;
+
+    private List<TurmaDTO> turmas = new ArrayList<>();
 
     public EscolaDTO() {
     }
@@ -30,6 +36,11 @@ public class EscolaDTO implements Serializable {
         this.nome = escola.getNome();
         this.endereco = new EnderecoDTO(escola.getEndereco());
         this.dataDeCriacao = escola.getDataDeCriacao();
+        this.turmas = escola.getTurmas()
+                .stream()
+                .map(TurmaDTO::new)
+                .sorted(Comparator.comparing(TurmaDTO::getIdTurma))
+                .collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -62,5 +73,13 @@ public class EscolaDTO implements Serializable {
 
     public void setDataDeCriacao(Date dataDeCriacao) {
         this.dataDeCriacao = dataDeCriacao;
+    }
+
+    public List<TurmaDTO> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<TurmaDTO> turmas) {
+        this.turmas = turmas;
     }
 }

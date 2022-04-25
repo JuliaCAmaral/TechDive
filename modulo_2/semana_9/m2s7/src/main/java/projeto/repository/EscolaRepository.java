@@ -12,4 +12,8 @@ public class EscolaRepository extends GenericRepository {
                 .createNamedQuery(Escola.GET_ESCOLASDTO, EscolaDTO.class)
                 .getResultList();
     }
+
+    public Escola getById(Long id) {
+        return find(Escola.class, id);
+    }
 }

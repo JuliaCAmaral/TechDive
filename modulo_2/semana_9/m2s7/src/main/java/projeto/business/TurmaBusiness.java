@@ -8,6 +8,7 @@ import projeto.entity.Escola;
 import projeto.entity.Estudante;
 import projeto.entity.Turma;
 import projeto.exception.BusinessException;
+import projeto.repository.EscolaRepository;
 import projeto.repository.TurmaRepository;
 
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ public class TurmaBusiness {
     private TurmaRepository turmaRepository;
 
     @Inject
-    private EscolaBusiness escolaBusiness;
+    private EscolaRepository escolaRepository;
 
     public void cadastrar(TurmaDTO turmaDTO) throws BusinessException {
         validarCadastrar(turmaDTO);
@@ -42,7 +43,7 @@ public class TurmaBusiness {
         turma.setDataInicio(turmaDTO.getDataInicio());
         turma.setDataTermino(turmaDTO.getDataTermino());
 
-        Escola escola = escolaBusiness.getById(turmaDTO.getEscola().getId());
+        Escola escola = escolaRepository.getById(turmaDTO.getEscola().getId());
         turma.setEscola(escola);
 
         for (Estudante estudante : turma.getEstudantes()) {
@@ -119,5 +120,9 @@ public class TurmaBusiness {
                 && filtro.getDataTermino() == null) {
             throw new BusinessException("Insira ao menos um filtro para realizar a busca.");
         }
+    }
+
+    public List<TurmaDTO> consultarTurmas() {
+        return turmaRepository.consultarTurmas();
     }
 }

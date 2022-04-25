@@ -55,6 +55,7 @@ public class TurmaCadastroWebBean implements Serializable {
                 Faces.redirect("/turma.xhtml");
             }
         }
+        turmaDTO = new TurmaDTO();
         estudantesSemTurmas = turmaService.consultarEstudantesSemTurmas();
         escolas = escolaService.consultarEscolas();
     }

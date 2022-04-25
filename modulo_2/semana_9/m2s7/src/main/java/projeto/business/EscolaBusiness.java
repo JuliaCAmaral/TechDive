@@ -2,6 +2,7 @@ package projeto.business;
 
 import org.apache.commons.lang3.StringUtils;
 import projeto.dto.EscolaDTO;
+import projeto.dto.TurmaDTO;
 import projeto.entity.Endereco;
 import projeto.entity.Escola;
 import projeto.exception.BusinessException;
@@ -19,12 +20,15 @@ public class EscolaBusiness {
     @Inject
     EnderecoBusiness enderecoBusiness;
 
-    public Escola inserir(EscolaDTO escola) throws BusinessException {
+    @Inject
+    TurmaBusiness turmaBusiness;
+
+    public void cadastrar(EscolaDTO escola) throws BusinessException {
         validarEscola(escola);
-        return cadastrarEscolaNoBanco(escola);
+        cadastrarEscolaNoBanco(escola);
     }
 
-    private Escola cadastrarEscolaNoBanco(EscolaDTO escolaDTO) throws BusinessException {
+    private void cadastrarEscolaNoBanco(EscolaDTO escolaDTO) throws BusinessException {
         Escola escola;
         if (escolaDTO.getId() != null) {
             escola = escolaRepository.find(Escola.class, escolaDTO.getId());
@@ -47,7 +51,6 @@ public class EscolaBusiness {
             escolaRepository.persist(escola);
             escolaDTO.setId(escola.getId());
         }
-        return escola;
     }
 
     public void validarEscola(EscolaDTO escolaDTO) throws BusinessException {
@@ -55,6 +58,14 @@ public class EscolaBusiness {
 
         if (StringUtils.isBlank(escolaDTO.getNome())) {
             erros.add("O Nome da Escola é inválido.");
+        }
+
+        if (escolaDTO.getDataDeCriacao() == null) {
+            erros.add("A data de criação da Escola é inválida.");
+        }
+
+        if (escolaDTO.getTurmas().size() == 0) {
+            erros.add("Deve cadastrar no mínimo uma turma.");
         }
 
         try {
@@ -68,7 +79,15 @@ public class EscolaBusiness {
         }
     }
 
-    public Escola getById(Long id) {
-        return escolaRepository.find(Escola.class, id);
+    public EscolaDTO consultarDadosEscola(Long id) throws BusinessException {
+        Escola escola = escolaRepository.find(Escola.class, id);
+        if (escola == null) {
+            throw new BusinessException("Escola não encontrada.");
+        }
+        return new EscolaDTO(escola);
+    }
+
+    public List<TurmaDTO> consultarTurmasDisponiveis() {
+        return turmaBusiness.consultarTurmas();
     }
 }

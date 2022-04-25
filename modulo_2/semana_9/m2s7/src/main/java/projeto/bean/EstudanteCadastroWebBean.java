@@ -19,20 +19,21 @@ import java.util.List;
 @ViewScoped
 @Named("estudanteCadastroWebBean")
 public class EstudanteCadastroWebBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
-
-    private EstudanteDTO estudanteDTO = new EstudanteDTO();
-
-    private List<TurmaDTO> turmas = new ArrayList<>();
-
-    @Param(name = "idEstudante")
-    private Long idEstudante;
 
     @Inject
     private EstudanteService estudanteService;
 
     @Inject
     private TurmaService turmaService;
+
+    @Param(name = "idEstudante")
+    private Long idEstudante;
+
+    private EstudanteDTO estudanteDTO = new EstudanteDTO();
+
+    private List<TurmaDTO> turmas = new ArrayList<>();
 
     public void inicializar() {
         if (idEstudante != null) {
@@ -45,6 +46,7 @@ public class EstudanteCadastroWebBean implements Serializable {
             }
         }
         turmas = turmaService.consultarTurmas();
+        estudanteDTO = new EstudanteDTO();
     }
 
     public void cadastrar() {
