@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Cursos {
+public class Curso {
 
     @NotEmpty(message = "{campo.obrigatorio} : codigo")
     private String codigo;
@@ -21,10 +21,10 @@ public class Cursos {
     @NotNull(message = "{campo.obrigatorio} : data de fim")
     private LocalDate dataDeFim;
 
-    public Cursos() {
+    public Curso() {
     }
 
-    public Cursos(String codigo, String nome, LocalDate dataDeInicio, LocalDate dataDeFim) {
+    public Curso(String codigo, String nome, LocalDate dataDeInicio, LocalDate dataDeFim) {
         this.codigo = codigo;
         this.nome = nome;
         this.dataDeInicio = dataDeInicio;
@@ -35,8 +35,8 @@ public class Cursos {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cursos cursos = (Cursos) o;
-        return Objects.equals(codigo, cursos.codigo);
+        Curso curso = (Curso) o;
+        return Objects.equals(codigo, curso.codigo);
     }
 
     @Override
