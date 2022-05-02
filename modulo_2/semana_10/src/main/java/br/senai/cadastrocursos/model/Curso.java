@@ -16,19 +16,19 @@ public class Curso {
     private String nome;
 
     @NotNull(message = "{campo.obrigatorio} : data de inicio")
-    private LocalDate dataDeInicio;
+    private LocalDate dataInicio;
 
     @NotNull(message = "{campo.obrigatorio} : data de fim")
-    private LocalDate dataDeFim;
+    private LocalDate dataFim;
 
     public Curso() {
     }
 
-    public Curso(String codigo, String nome, LocalDate dataDeInicio, LocalDate dataDeFim) {
+    public Curso(String codigo, String nome, LocalDate dataInicio, LocalDate dataFim) {
         this.codigo = codigo;
         this.nome = nome;
-        this.dataDeInicio = dataDeInicio;
-        this.dataDeFim = dataDeFim;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
     @Override
@@ -60,25 +60,25 @@ public class Curso {
         this.nome = nome;
     }
 
-    public LocalDate getDataDeInicio() {
-        return dataDeInicio;
+    public LocalDate getDataInicio() {
+        return dataInicio;
     }
 
-    public void setDataDeInicio(LocalDate dataDeInicio) {
-        this.dataDeInicio = dataDeInicio;
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataDeFim() {
-        return dataDeFim;
+    public LocalDate getDataFim() {
+        return dataFim;
     }
 
-    public void setDataDeFim(LocalDate dataDeFim) {
-        this.dataDeFim = dataDeFim;
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 
     @Override
     public String toString() {
         return String.format("CURSO: Código: %s - Data de Início: %s - Data de Fim: %s.",
-                codigo, dataDeInicio, dataDeFim);
+                codigo, dataInicio, dataFim);
     }
 }
