@@ -1,5 +1,0 @@
-br/senai/compras/model/Item.class
-br/senai/compras/bean/UnidadesBean.class
-br/senai/compras/bean/ItemBean.class
-br/senai/compras/bean/ListagemBean.class
-br/senai/compras/repository/ItemRepository.class

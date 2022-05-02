@@ -22,56 +22,80 @@
             <p:autoUpdate/>
         </p:messages>
 
-        <p:fieldset id="filtros" legend="Filtros">
-            <p:outputLabel value="Código: "/>
-            <p:inputNumber id="codigoTurma"
-                           decimalPlaces="0"
-                           decimalSeparator=""
-                           thousandSeparator=""
-                           value="#{buscaTurmaWebBean.filtro.idTurma}">
-                <p:ajax process="@this"/>
-            </p:inputNumber>
+        <p:fieldset id="filtros" legend="Filtros" style="width: 80%; border: 1px solid #0099ff; margin: 15px; position: center">
+            <div class="contenedor" style="display:flex; justify-content: space-evenly">
+               <div class="contenido" style="height:80px; width:10%; float:left; margin: 10px;">
+                   <p:outputLabel value="Código: "/>
+                   <p:inputNumber id="codigoTurma"
+                                  decimalPlaces="0"
+                                  decimalSeparator=""
+                                  thousandSeparator=""
+                                  value="#{buscaTurmaWebBean.filtro.idTurma}">
+                       <p:ajax process="@this"/>
+                   </p:inputNumber>
+               </div>
 
-            <p:outputLabel value="Nome: "/>
-            <p:inputText id="nomeTurma" value="#{buscaTurmaWebBean.filtro.nome}">
-                <p:ajax process="@this"/>
-            </p:inputText>
+                <div class="contenido" style="height:80px; width:10%; float:left; margin: 10px;">
+                    <p:outputLabel value="Nome: "/>
+                    <p:inputText id="nomeTurma" value="#{buscaTurmaWebBean.filtro.nome}">
+                        <p:ajax process="@this"/>
+                    </p:inputText>
+                </div>
 
-            <p:outputLabel value="Matrícula/Nome do estudante: "/>
-            <p:autoComplete id="autocompleteEstudante"
-                            minQueryLength="3"
-                            queryDelay="1000"
-                            emptyMessage="Nenhum estudante encontrado"
-                            forceSelection="true"
-                            maxResults="15"
-                            cache="true"
-                            cacheTimeout="3000000"
-                            completeMethod="#{buscaTurmaWebBean.consultarEstudantePorNomeOuMatricula}"
-                            value="#{buscaTurmaWebBean.filtro.idEstudante}"
-                            var="estudante"
-                            itemValue="#{estudante.idEstudante}"
-                            itemLabel="#{estudante.nome}">
-                <p:ajax event="itemSelect" process="@this" global="false"/>
-                <p:ajax event="clear" process="@this" global="false"/>
-            </p:autoComplete>
+                <div class="contenido" style="height:80px; width:10%; float:left; margin: 10px;">
+                    <p:outputLabel value="Escola: "/>
+                    <p:inputText id="nomeEscola" value="#{buscaTurmaWebBean.filtro.nome}">
+                        <p:ajax process="@this"/>
+                    </p:inputText>
+                </div>
 
-            <p:outputLabel value="Início: "/>
-            <p:calendar id="dataInicio"
-                        pattern="dd/MM/yyyy"
-                        value="#{buscaTurmaWebBean.filtro.dataInicio}">
-                <p:ajax event="dateSelect" process="@this"/>
-                <p:ajax event="change" process="@this"/>
-                <p:ajax process="@this"/>
-            </p:calendar>
+            </div>
 
-            <p:outputLabel value="Término: "/>
-            <p:calendar id="dataTermino"
-                        pattern="dd/MM/yyyy"
-                        value="#{buscaTurmaWebBean.filtro.dataTermino}">
-                <p:ajax event="dateSelect" process="@this"/>
-                <p:ajax event="change" process="@this"/>
-                <p:ajax process="@this"/>
-            </p:calendar>
+            <div class="contenedor" style="display:flex; justify-content: space-evenly;">
+                <div class="contenido" style="height:80px; width:10%; float:left; margin: 10px;">
+                    <p:outputLabel value="Matrícula/Nome do estudante: "/>
+                    <p:autoComplete id="autocompleteEstudante"
+                                    minQueryLength="3"
+                                    queryDelay="1000"
+                                    emptyMessage="Nenhum estudante encontrado"
+                                    forceSelection="true"
+                                    maxResults="15"
+                                    cache="true"
+                                    cacheTimeout="3000000"
+                                    completeMethod="#{buscaTurmaWebBean.consultarEstudantePorNomeOuMatricula}"
+                                    value="#{buscaTurmaWebBean.filtro.idEstudante}"
+                                    var="estudante"
+                                    itemValue="#{estudante.idEstudante}"
+                                    itemLabel="#{estudante.nome}">
+                        <p:ajax event="itemSelect" process="@this" global="false"/>
+                        <p:ajax event="clear" process="@this" global="false"/>
+                    </p:autoComplete>
+                </div>
+            </div>
+
+            <div class="contenedor" style="display:flex; justify-content: space-evenly;">
+                <div class="contenido" style="height:80px; width:10%; float:left; margin: 10px;">
+                    <p:outputLabel value="Início: "/>
+                    <p:calendar id="dataInicio"
+                                pattern="dd/MM/yyyy"
+                                value="#{buscaTurmaWebBean.filtro.dataInicio}">
+                        <p:ajax event="dateSelect" process="@this"/>
+                        <p:ajax event="change" process="@this"/>
+                        <p:ajax process="@this"/>
+                    </p:calendar>
+                </div>
+
+                <div class="contenido" style="height:80px; width:10%; float:left; margin: 10px;">
+                    <p:outputLabel value="Término: "/>
+                    <p:calendar id="dataTermino"
+                                pattern="dd/MM/yyyy"
+                                value="#{buscaTurmaWebBean.filtro.dataTermino}">
+                        <p:ajax event="dateSelect" process="@this"/>
+                        <p:ajax event="change" process="@this"/>
+                        <p:ajax process="@this"/>
+                    </p:calendar>
+                </div>
+            </div>
 
             <p:commandButton id="buscar"
                              value="Buscar"
@@ -80,7 +104,7 @@
                              action="#{buscaTurmaWebBean.buscar()}"/>
         </p:fieldset>
 
-        <p:fieldset id="turmas" legend="Turmas"
+        <p:fieldset id="turmas" legend="Turmas" style="width: 80%; border: 1px solid #0099ff; margin: 15px"
                     rendered="#{buscaTurmaWebBean.buscaFeita}">
             <p:dataTable id="turmasEncontradas"
                          value="#{buscaTurmaWebBean.turmasEncontradas}"
